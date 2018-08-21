@@ -1,0 +1,261 @@
+@charset "UTF-8";
+
+/* header */
+
+header {
+  width: 100%;
+  height: 60px;
+  background-color: #fff;
+  box-shadow: 0 2px 2px #ddd;
+  position: fixed;
+  z-index: 100;
+}
+
+.headerInner {
+  height: 100%;
+  padding: 15px 15px 0 15px;
+}
+
+.headerTitle {
+  text-shadow: -2px 2px 3px #f80;
+  color: #333;
+  float: left;
+}
+
+.headerNav {
+  float: right;
+  top: 15px;
+  right: 0;
+  height: 45px;
+}
+
+.headerNav li {
+  font-size: 10px;
+  float: left;
+  margin-left: 5px;
+}
+
+#msk {
+  background-color: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  z-index: 1;
+}
+
+/* menu */
+
+.headerMenu {
+  text-align: left;
+  width: 100%;
+  background-color: #fff;
+  box-shadow: -3px 2px 4px  #6d6;
+  position: fixed;
+  top: 60px;
+  right: 0;
+  z-index: 10;
+}
+
+.headerMenu li {
+  width: 100%;
+  height: 60px;
+  margin: 0;
+}
+
+.headerMenu a {
+  font-size: 30px;
+  line-height: 60px;
+}
+
+/* user */
+
+.user {
+  width: 100%;
+  height: 65px;
+  display: flex;
+}
+
+.userIcon {
+  width: 70px;
+  height: 65px;
+}
+
+.userIconInner {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #ddd;
+}
+
+.userData {
+  text-align: left;
+  height: 65px;
+  flex-grow: 1;
+}
+
+.postUser {
+  height: 47px;
+  display: flex;
+  align-items: center;
+}
+
+
+.postdate {
+  color: #aaa;
+  height: 18px;
+}
+
+.countWrap {
+  padding-right: 10px;
+  height: 65px;
+  display: flex;
+  align-items: center;
+}
+
+/* hero */
+
+.heroIntro {
+  font-size: 32px;
+  font-weight: bold;
+  width: 100%;
+  text-shadow: -4px 4px 6px #6d6;
+  height: 40vh;
+}
+
+.keyVisual {
+  width: 100%;
+  height: 50vh;
+  background-image: url(/../images/1530797394905.jpg);
+  background-position: center;
+  background-size: cover;
+  position: relative;
+}
+
+.keyVisualLink {
+  width: 100%;
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.keyVisual a {
+  font-size: 30px;
+  color: #fff;
+  text-shadow: 2px 2px 4px #0d0;
+}
+
+/* gallery */
+
+.gallery h2 {
+  text-shadow: -4px 4px 6px #6d6;
+}
+
+.thumbWap {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.thumbBlock {
+  width: 33.333%;
+  margin-top: 5px;
+  padding: 1px;
+}
+
+.thumb {
+  width: 100%;
+}
+
+/* form */
+
+.form {
+  width: 100%;
+  padding-top: 20px;
+  background-color: #ddd;
+}
+
+.form p {
+  margin-top: 20px;
+}
+
+input[type="name"],
+input[type="email"],
+input[type="password"],
+input[type="text"],
+input[type="password"] {
+  font-size: 16px;
+  font-weight: bold;
+  width: 250px;
+  height: 24px;
+  padding: 4px;
+  border-radius: 5px;
+  box-shadow: 2px 2px 4px #ddd;
+}
+
+textarea {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* footer */
+
+footer {
+  text-align: center;
+  font-size: 12px;
+  width: 100%;
+  padding-bottom: 60px;
+}
+
+.footerMenu {
+  margin: 40px auto 20px;
+  width: 60%;
+  height: 20px;
+  display: flex;
+}
+
+.footerMenuInner {
+  flex-grow: 1;
+}
+
+.footerMenuInner + .footerMenuInner {
+  border-left: 2px solid #888;
+}
+
+.footerMenuInner a {
+  color: #333;
+}
+
+.footerTitle {
+  text-align: right;
+  text-shadow: -2px 2px 4px #f80;
+  color: #333;
+  margin: 10px 10px 10px 0;
+}
+
+address {
+  clear: both;
+}
+
+/* bottomMenu */
+
+.bottomMenu {
+  width: 100%;
+  height: 45px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background-color: #fff;
+  box-shadow: 0 -2px 2px #ddd;
+  display: flex;
+  z-index: 100;
+}
+
+.menuIcon {
+  flex-grow: 1;
+}
+
+.menuIcon a {
+  color: #666;
+}
