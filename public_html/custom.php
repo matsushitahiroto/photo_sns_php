@@ -97,6 +97,7 @@ $app->run();
               <?php echo h($app->getErrors('name')); ?>
               <?php echo h($app->getErrors('description')); ?>
               <?php echo h($app->getErrors('email')); ?>
+              <?php echo h($app->getErrors('demail')); ?>
               <?php echo h($app->getErrors('custom')); ?>
               <?php echo h($app->getErrors('password')); ?>
             </p>

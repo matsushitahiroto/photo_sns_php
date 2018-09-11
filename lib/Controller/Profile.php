@@ -11,5 +11,10 @@ class Profile extends \MyApp\Controller {
       exit;
     }
 
+    $articleModel = new \MyApp\Model\Article();
+
+    $this->setValues('articles', $articleModel->getMyArticles([
+      'user_id' => $_SESSION['me']->id
+    ]));
   }
 }

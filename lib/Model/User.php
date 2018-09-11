@@ -5,7 +5,13 @@ namespace MyApp\Model;
 class User extends \MyApp\Model {
   //新規ユーザー登録処理
   public function create($values) {
-    $stmt = $this->db->prepare("insert into users (name, description, email, password, created, modified) values (:name, :description, :email, :password, now(), now())");
+    $stmt = $this->db->prepare("
+    insert into users (
+      name, description, email, password, user_created, user_modified
+    ) values (
+      :name, :description, :email, :password, now(), now()
+    )
+    ");
     $res = $stmt->execute([
       ':name' => $values['name'],
       ':description' => $values['description'],
@@ -18,11 +24,15 @@ class User extends \MyApp\Model {
   }
 
   //プロフィール内容の変更
-  public function custom($values) {
+  public function checkPassword($values) {
     //idでログインしてパスワードを比較
-    $stmt = $this->db->prepare("select * from users where id = :id");
+    $stmt = $this->db->prepare("
+    select *
+    from users
+    where id = :id
+    ");
     $stmt->execute([
-      ':id' => $values['id'],
+      ':id' => $values['id']
     ]);
     $stmt->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
     $user = $stmt->fetch();
@@ -30,8 +40,18 @@ class User extends \MyApp\Model {
     if(!password_verify($values['password'], $user->password)) {
       throw new \MyApp\Exception\UnmatchPassword();
     }
+  }
+
+  public function custom($values) {
     // 内容の書き換え
-    $stmt = $this->db->prepare("update users set name = :name, description = :description, email = :email, modified = now() where id = :id");
+    $stmt = $this->db->prepare("
+    update users set
+      name = :name,
+      description = :description,
+      email = :email,
+      modified = now()
+      where id = :id
+    ");
     $res = $stmt->execute([
       ':name' => $values['name'],
       ':description' => $values['description'],
@@ -41,20 +61,54 @@ class User extends \MyApp\Model {
     if($res === false) {
       throw new \MyApp\Exception\DuplicateEmail();
     }
+  }
+
+  public function reload($values) {
     // 再度ログイン
-    $stmt = $this->db->prepare("select * from users where email = :email");
+    $stmt = $this->db->prepare("
+    select
+      users.id,
+      users.name,
+      users.description,
+      users.password,
+      users.email,
+      users.created,
+      users.modified,
+      count(articles.id) as ac
+    from users
+    left join articles on users.id = articles.user_id
+    where users.id = :id
+    order by users.id
+    ");
     $stmt->execute([
-      ':email' => $values['email'],
+      ':id' => $values['id'],
     ]);
     $stmt->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
     $user = $stmt->fetch();
+    if(empty($user)) {
+      throw new \MyApp\Exception\DownloadError();
+    }
     return $user;
 
   }
 
 // ログイン処理
   public function login($values) {
-    $stmt = $this->db->prepare("select * from users where email = :email");
+    $stmt = $this->db->prepare("
+    select
+      users.id,
+      users.name,
+      users.description,
+      users.password,
+      users.email,
+      users.created,
+      users.modified,
+      count(articles.id) as ac
+    from users
+    left join articles on users.id = articles.user_id
+    where users.email = :email
+    order by users.id
+    ");
     $stmt->execute([
       ':email' => $values['email'],
     ]);
@@ -73,20 +127,4 @@ class User extends \MyApp\Model {
     return $user;
   }
 
-// ユーザー情報の取得
-  public function findAllUser() {
-    $stmt = $this->db->query("select * from users order by id");
-    $stmt->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
-    return $stmt->fetchAll();
-  }
-
-  public function getPostUser($values) {
-    // 記事データ取得
-    $stmt = $this->db->prepare("select * from users where id = :id");
-    $stmt->execute([
-      ':id' => $values['uid'],
-    ]);
-    $stmt->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
-    return $stmt->fetchAll();
-  }
 }

@@ -5,8 +5,12 @@ require_once(__DIR__ . '/../config/config.php');
 $app = new MyApp\Controller\Profile();
 
 $app->run();
+$app->getValues()->articles;
 
-$myArticles = $_SESSION['img'];
+// var_dump($app->me());
+// var_dump($app->getValues()->articles);
+// exit;
+
 
  ?>
 <!DOCTYPE html>
@@ -78,7 +82,7 @@ $myArticles = $_SESSION['img'];
             </div>
           </div>
           <div class="countWrap">
-            <p><span class="fs18"><?php echo h(count($_SESSION['img'])); ?></span></br>投稿</p>
+            <p><span class="fs18"><?php echo h($app->me()->ac); ?></span></br>投稿</p>
           </div>
         </div>
         <div class="caption">
@@ -88,11 +92,11 @@ $myArticles = $_SESSION['img'];
         <div class="gallery">
           <h2>投稿した写真</h2>
           <div class="thumbWap">
-            <?php foreach ($myArticles as $myArticle) : ?>
+            <?php foreach ($app->getValues()->articles as $article) : ?>
               <div class="thumbBlock">
-                <a href="photo.php?id=<?php echo h($myArticle->id); ?>&uid=<?php echo h($myArticle->user_id) ?>">
-                  <img src="postimage/<?php echo h(basename($myArticle->savePath)); ?>" alt="">
-                  <p><i class="far fa-thumbs-up"></i>●  <i class="far fa-comment-alt"></i>●</p>
+                <a href="photo.php?id=<?php echo h($article->id); ?>">
+                  <img src="postimage/<?php echo h(basename($article->savePath)); ?>" alt="">
+                  <p><i class="far fa-thumbs-up"></i><?php echo h($article->lc); ?>  <i class="far fa-comment-alt"></i><?php echo h($article->cc); ?></p>
                 </a>
               </div>
             <?php endforeach; ?>

@@ -3,5 +3,5 @@
 namespace MyApp\Exception;
 
 class InvalidUsername extends \Exception {
-  protected $message = 'ユーザーの名前が正しくありません！';
+  protected $message = 'ユーザーの名前に使えない記号があります！';
 }

@@ -6,6 +6,10 @@ $app = new MyApp\Controller\Index();
 
 $app->run();
 $app->getValues()->articles;
+$app->getValues()->likeArticles;
+
+// var_dump($app->getValues()->articles);
+// exit;
 
  ?>
 <!DOCTYPE html>
@@ -94,9 +98,9 @@ $app->getValues()->articles;
             <div class="thumbWap">
               <?php foreach ($app->getValues()->articles as $article) : ?>
                 <div class="thumbBlock">
-                  <a href="photo.php?id=<?php echo h($article->id); ?>&uid=<?php echo h($article->user_id) ?>">
+                  <a href="photo.php?id=<?php echo h($article->id); ?>">
                     <img src="postimage/<?php echo h(basename($article->savePath)); ?>" alt="">
-                    <p><i class="far fa-thumbs-up"></i>●  <i class="far fa-comment-alt"></i>●</p>
+                    <p><i class="far fa-thumbs-up"></i><?php echo h($article->lc); ?>  <i class="far fa-comment-alt"></i><?php echo h($article->cc); ?></p>
                   </a>
                 </div>
               <?php endforeach; ?>
@@ -104,11 +108,11 @@ $app->getValues()->articles;
           </div>
           <div class="gallery hidden" id="orangeAria">
             <div class="thumbWap">
-              <?php foreach ($app->getValues()->articles as $article) : ?>
+              <?php foreach ($app->getValues()->likeArticles as $likeArticle) : ?>
                 <div class="thumbBlock">
-                  <a href="photo.php?id=<?php echo h($article->id); ?>&uid=<?php echo h($article->user_id) ?>">
-                    <img src="postimage/<?php echo h(basename($article->savePath)); ?>" alt="">
-                    <p><i class="far fa-thumbs-up"></i>●  <i class="far fa-comment-alt"></i>●</p>
+                  <a href="photo.php?id=<?php echo h($likeArticle->id); ?>">
+                    <img src="postimage/<?php echo h(basename($likeArticle->savePath)); ?>" alt="">
+                    <p><i class="far fa-thumbs-up"></i><?php echo h($likeArticle->lc); ?>  <i class="far fa-comment-alt"></i><?php echo h($likeArticle->cc); ?></p>
                   </a>
                 </div>
               <?php endforeach; ?>
@@ -129,7 +133,7 @@ $app->getValues()->articles;
               <p><span class="fs24"><?php echo h($app->me()->name); ?></span> さん</p>
             </div>
             <div class="height50 flexCenter">
-              <p><span class="fs24"><?php echo h(count($_SESSION['img'])); ?></span></br>投稿</p>
+              <p><span class="fs24"><?php echo h($app->me()->ac); ?></span></br>投稿</p>
             </div>
           </div>
         </div>

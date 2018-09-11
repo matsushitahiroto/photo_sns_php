@@ -14,10 +14,6 @@ class Post extends \MyApp\Controller {
       exit;
 
     }
-    //get users info
-    $userModel = new \MyApp\Model\User();
-
-    $this->setValues('users', $userModel->findAllUser());
 
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
       $this->upload();
@@ -54,37 +50,32 @@ class Post extends \MyApp\Controller {
     if($this->hasError()) {
       return;
     } else {
-      //custom user
       try {
         $articleModel = new \MyApp\Model\Article();
         $articleModel->post([
           'title' => $_POST['title'],
           'description' => $_POST['description'],
           'savePath' => $savePath,
-          'user_id' => $_POST['id']
+          'id' => $_POST['id']
         ]);
-
       } catch (\MyApp\Exception\UploadError $e) {
         $this->setErrors('article', $e->getMessage());
         return;
       }
-
       try {
-        $articleModel = new \MyApp\Model\Article();
-        $article = $articleModel->getMyArticles([
-          'user_id' => $_POST['id']
+        $userModel = new \MyApp\Model\User();
+        $user = $userModel->reload([
+          'id' => $_POST['id']
         ]);
-      } catch (\MyApp\Exception\UploadError $e) {
-        $this->setErrors('article', $e->getMessage());
+      } catch (\MyApp\Exception\DownloadError $e) {
+        $this->setErrors('login', $e->getMessage());
         return;
       }
-
-      $_SESSION['img'] = $article;
-
-      //redirect to index
-      header('Location:' . SITE_URL . '/profile.php');
-      exit;
+      $_SESSION['me'] = $user;
     }
+    //redirect to index
+    header('Location:' . SITE_URL . '/profile.php');
+    exit;
   }
 
   private function _validate() {

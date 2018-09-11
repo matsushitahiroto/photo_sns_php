@@ -96,3 +96,11 @@
   margin: 10px 0;
   padding: 0 10px;
 }
+
+#commentTemplate {
+  display: none;
+}
+
+#likeTemplate {
+  display: none;
+}

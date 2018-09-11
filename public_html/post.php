@@ -4,7 +4,9 @@ require_once(__DIR__ . '/../config/config.php');
 $app = new MyApp\Controller\Post();
 
 $app->run();
-// $app->getImages();
+
+// var_dump($app->me()->name);
+// exit;
 
  ?>
  <!DOCTYPE html>
@@ -96,6 +98,7 @@ $app->run();
             <?php echo h($app->getErrors('size')); ?>
             <?php echo h($app->getErrors('type')); ?>
             <?php echo h($app->getErrors('image')); ?>
+            <?php echo h($app->getErrors('login')); ?>
           </div>
 
           <div class="btn submitBtn" onclick="document.getElementById('post').submit();">

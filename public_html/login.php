@@ -5,9 +5,11 @@ require_once(__DIR__ . '/../config/config.php');
 $app = new MyApp\Controller\Login();
 
 $app->run();
-$app->getValues()->users;
 $app->getValues()->articles;
+$app->getValues()->likeArticles;
 
+// var_dump($app->getValues()->articles);
+// exit;
 
  ?>
  <!DOCTYPE html>
@@ -81,9 +83,9 @@ $app->getValues()->articles;
             <div class="thumbWap">
               <?php foreach ($app->getValues()->articles as $article) : ?>
                 <div class="thumbBlock">
-                  <a href="photo.php?id=<?php echo h($article->id); ?>&uid=<?php echo h($article->user_id) ?>">
+                  <a href="photo.php?id=<?php echo h($article->id); ?>">
                     <img src="postimage/<?php echo h(basename($article->savePath)); ?>" alt="">
-                    <p><i class="far fa-thumbs-up"></i>●  <i class="far fa-comment-alt"></i>●</p>
+                    <p><i class="far fa-thumbs-up"></i><?php echo h($article->lc); ?>  <i class="far fa-comment-alt"></i><?php echo h($article->cc); ?></p>
                   </a>
                 </div>
               <?php endforeach; ?>
@@ -91,11 +93,11 @@ $app->getValues()->articles;
           </div>
           <div class="gallery hidden" id="orangeAria">
             <div class="thumbWap">
-              <?php foreach ($app->getValues()->articles as $article) : ?>
+              <?php foreach ($app->getValues()->likeArticles as $likeArticle) : ?>
                 <div class="thumbBlock">
-                  <a href="photo.php?id=<?php echo h($article->id); ?>&uid=<?php echo h($article->user_id) ?>">
-                    <img src="postimage/<?php echo h(basename($article->savePath)); ?>" alt="">
-                    <p><i class="far fa-thumbs-up"></i>●  <i class="far fa-comment-alt"></i>●</p>
+                  <a href="photo.php?id=<?php echo h($likeArticle->id); ?>">
+                    <img src="postimage/<?php echo h(basename($likeArticle->savePath)); ?>" alt="">
+                    <p><i class="far fa-thumbs-up"></i><?php echo h($likeArticle->lc); ?>  <i class="far fa-comment-alt"></i><?php echo h($likeArticle->cc); ?></p>
                   </a>
                 </div>
               <?php endforeach; ?>
@@ -115,7 +117,10 @@ $app->getValues()->articles;
                 <input type="password" name="password" placeholder="パスワード">
               </p>
               <input type="hidden" name="token" value="<?php echo h($_SESSION['token']); ?>">
-              <p class="err"><?php echo h($app->getErrors('login')); ?></p>
+              <p class="err">
+                <?php echo h($app->getErrors('login')); ?>
+                <?php echo h($app->getErrors('load')); ?>
+              </p>
               <div class="btn submitBtn" onclick="document.getElementById('login').submit();">
                 ログイン
               </div>

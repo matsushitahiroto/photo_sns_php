@@ -3,5 +3,5 @@
 namespace MyApp\Exception;
 
 class InvalidEmail extends \Exception {
-  protected $message = 'メールアドレスが正しくありません！';
+  protected $message = 'メールアドレスに使えない記号があります！';
 }

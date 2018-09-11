@@ -8,20 +8,18 @@ class Login extends \MyApp\Controller {
       header('Location:' . SITE_URL);
       exit;
     }
-    //get users info
-    $userModel = new \MyApp\Model\User();
-
-    $this->setValues('users', $userModel->findAllUser());
 
     $articleModel = new \MyApp\Model\Article();
 
     $this->setValues('articles', $articleModel->findAllArticle());
+    $this->setValues('likeArticles', $articleModel->findAllLikeArticle());
 
 
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
       $this->postProcess();
     }
   }
+
 
   protected function postProcess() {
     //validate
@@ -49,17 +47,6 @@ class Login extends \MyApp\Controller {
       session_regenerate_id(true);
       $_SESSION['me'] = $user;
 
-      try {
-        $articleModel = new \MyApp\Model\Article();
-        $article = $articleModel->getMyArticles([
-          'user_id' => $user->id
-        ]);
-      } catch (\MyApp\Exception\UploadError $e) {
-        $this->setErrors('image', $e->getMessage());
-        return;
-      }
-
-      $_SESSION['img'] = $article;
       //redirect to login
       header('Location:' . SITE_URL);
       exit;

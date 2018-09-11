@@ -4,7 +4,19 @@ require_once(__DIR__ . '/../config/config.php');
 
 $app = new MyApp\Controller\Photo();
 
-$article = $app->run();
+$app->run();
+$app->getValues()->article;
+$app->getValues()->comments;
+$app->getValues()->likes;
+$app->getValues()->check;
+
+// var_dump($app->getValues()->article);
+// var_dump($app->getValues()->article[0]->lc);
+// var_dump($app->getValues()->comments);
+// var_dump($app->getValues()->likes);
+// var_dump($_SESSION['me']->id);
+// var_dump($app->getValues()->check[0]->bool);
+// exit;
 
  ?>
  <!DOCTYPE html>
@@ -20,6 +32,8 @@ $article = $app->run();
     <script src="js/JQUERY Toggle.js"></script>
     <script src="js/JQUERY ChangeColor.js"></script>
     <script src="js/JQUERY ChangeImage.js"></script>
+    <script src="js/comment.js"></script>
+    <script src="js/like.js"></script>
   </head>
   <body>
     <div class="wrapper">
@@ -82,19 +96,47 @@ $article = $app->run();
           </div>
           <div class="userData">
             <div class="postUser">
-              <p><span class="fs18"><?php echo h($article[0][0]->name); ?></span> さんの投稿。</p>
+              <p><span class="fs18"><?php echo h($app->getValues()->article[0]->name); ?></span> さんの投稿。</p>
             </div>
             <div class="fs14 postdate">
-              <p><?php echo h($article[1][0]->created); ?></p>
+              <p><?php echo h($app->getValues()->article[0]->created); ?></p>
             </div>
           </div>
-          <div class="countWrap">
-            <p><i class="far fa-thumbs-up"></i> 3</br><i class="far fa-comment-alt"></i> 3</p>
-          </div>
+          <?php if($app->me()) : ?>
+            <div class="countWrap">
+              <p>
+                <i class="far fa-thumbs-up thumbs-up <?php if ($app->getValues()->check[0]->bool === '1') { echo 'orangeIcon';} ?>"></i>
+                <span class="thumbs-up-count">
+                  <?php echo h($app->getValues()->article[0]->lc); ?>
+                </span>
+                </br>
+                <a href="#newCommentForm">
+                  <i class="far fa-comment-alt"></i>
+                  <span class="commentCount">
+                    <?php echo h($app->getValues()->article[0]->cc); ?>
+                  </span>
+                </a>
+              </p>
+            </div>
+          <?php else : ?>
+            <div class="countWrap">
+              <p>
+                <i class="far fa-thumbs-up"></i>
+                <span class="thumbs-up-count">
+                  <?php echo h($app->getValues()->article[0]->lc); ?>
+                </span>
+                </br>
+                <i class="far fa-comment-alt"></i>
+                <span class="commentCount">
+                  <?php echo h($app->getValues()->article[0]->cc); ?>
+                </span>
+              </p>
+            </div>
+          <?php endif ; ?>
         </div>
         <div class="postGallery">
           <div class="caption">
-            <p class="fs18"><?php echo h($article[1][0]->title); ?></p>
+            <p class="fs18"><?php echo h($app->getValues()->article[0]->title); ?></p>
           </div>
           <div class="shadowBorder"></div>
           <div class="mapLink">
@@ -104,10 +146,10 @@ $article = $app->run();
             <p>群馬県板倉町　付近</p>
           </div>
           <div class="gallery">
-            <img id="bigImage" src="postimage/<?php echo h(basename($article[1][0]->savePath)); ?>" alt="">
+            <img id="bigImage" src="postimage/<?php echo h(basename($app->getValues()->article[0]->savePath)); ?>" alt="">
             <div class="thumbWap">
               <div class="thumbBlock">
-                <img class="thumb" src="postimage/<?php echo h(basename($article[1][0]->savePath)); ?>" alt="メイン画像" data-image="postimage/<?php echo h(basename($article[1][0]->savePath)); ?>">
+                <img class="thumb" src="postimage/<?php echo h(basename($app->getValues()->article[0]->savePath)); ?>" alt="メイン画像" data-image="postimage/<?php echo h(basename($app->getValues()->article[0]->savePath)); ?>">
               </div>
               <div class="thumbBlock">
                 <img class="thumb" src="images/p2.jpg" alt="サブ画像１" data-image="images/p2.jpg">
@@ -119,11 +161,33 @@ $article = $app->run();
           </div>
           <div class="postGalleryComment clear">
             <div class="caption">
-              <p><?php echo h($article[1][0]->description); ?></p>
+              <p><?php echo h($app->getValues()->article[0]->description); ?></p>
             </div>
             <?php if($app->me()) : ?>
-            <p><i class="far fa-thumbs-up"></i> 3　　<i class="far fa-comment-alt"></i> 3</p>
-          <?php endif ; ?>
+              <p>
+                <i class="far fa-thumbs-up thumbs-up <?php if ($app->getValues()->check[0]->bool === '1') { echo 'orangeIcon';} ?>"></i>
+                <span class="thumbs-up-count">
+                  <?php echo h($app->getValues()->article[0]->lc); ?>
+                </span>
+                <a href="#newCommentForm">
+                  <i class="far fa-comment-alt"></i>
+                  <span class="commentCount">
+                    <?php echo h($app->getValues()->article[0]->cc); ?>
+                  </span>
+                </a>
+              </p>
+            <?php else : ?>
+              <p>
+                <i class="far fa-thumbs-up"></i>
+                <span class="thumbs-up-count">
+                  <?php echo h($app->getValues()->article[0]->lc); ?>
+                </span>
+                <i class="far fa-comment-alt"></i>
+                <span class="commentCount">
+                  <?php echo h($app->getValues()->article[0]->cc); ?>
+                </span>
+              </p>
+            <?php endif ; ?>
           </div>
         </div>
         <?php if($app->me()) : ?>
@@ -142,114 +206,111 @@ $article = $app->run();
             </div>
             <div class="border orange" id="border"></div>
             <div class="greenAria hidden" id="greenAria">
-              <ul>
-                <li>
+              <ul id="likes">
+                <?php foreach ($app->getValues()->likes as $like) : ?>
+                  <li id="like_<?php echo h($like->id) ; ?>" data-id="<?php echo h($like->id) ; ?>">
+                    <div class="user">
+                      <div class="userIcon flexCenter">
+                        <div class="userIconInner"></div>
+                      </div>
+                      <div class="userData">
+                        <div class="postUser">
+                          <p><span class="fs18"><?php echo h($like->name) ; ?></span> さん</p>
+                        </div>
+                        <div class="fs14 postdate">
+                          <p><?php echo h($like->created) ; ?></p>
+                        </div>
+                      </div>
+                      <?php if($like->user_id === $app->me()->id) : ?>
+                        <div class="countWrap deleteLike">
+                          <p><i class="fas fa-times"></i></p>
+                        </div>
+                      <?php endif; ?>
+                    </div>
+                  </li>
+                <?php endforeach; ?>
+                <li id="likeTemplate" data-id="">
                   <div class="user">
                     <div class="userIcon flexCenter">
                       <div class="userIconInner"></div>
                     </div>
                     <div class="userData">
                       <div class="postUser">
-                        <p><span class="fs18">php</span> さん</p>
+                        <p><span class="fs18"><?php echo h($app->me()->name) ; ?></span> さん</p>
+                      </div>
+                      <div class="fs14 postdate">
                       </div>
                     </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="user">
-                    <div class="userIcon flexCenter">
-                      <div class="userIconInner"></div>
-                    </div>
-                    <div class="userData">
-                      <div class="postUser">
-                        <p><span class="fs18">sql</span> さん</p>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="user">
-                    <div class="userIcon flexCenter">
-                      <div class="userIconInner"></div>
-                    </div>
-                    <div class="userData">
-                      <div class="postUser">
-                        <p><span class="fs18">css</span> さん</p>
-                      </div>
+                    <div class="countWrap deleteLike">
+                      <p><i class="fas fa-times"></i></p>
                     </div>
                   </div>
                 </li>
               </ul>
             </div>
             <div class="orangeAria" id="orangeAria">
-              <ul>
-                <li>
+              <ul id="comments">
+                <?php foreach ($app->getValues()->comments as $comment) : ?>
+                  <li id="comment_<?php echo h($comment->id) ; ?>" data-id="<?php echo h($comment->id) ; ?>">
+                    <div class="user">
+                      <div class="userIcon flexCenter">
+                        <div class="userIconInner"></div>
+                      </div>
+                      <div class="userData">
+                        <div class="postUser">
+                          <p><span class="fs18"><?php echo h($comment->name) ; ?></span> さん</p>
+                        </div>
+                        <div class="fs14 postdate">
+                          <p><?php echo h($comment->created) ; ?></p>
+                        </div>
+                      </div>
+                      <?php if($comment->user_id === $app->me()->id) : ?>
+                        <div class="countWrap deleteComment">
+                          <p><i class="fas fa-times"></i></p>
+                        </div>
+                      <?php endif; ?>
+                    </div>
+                    <div class="caption">
+                      <p><?php echo h($comment->comment) ; ?></p>
+                    </div>
+                  </li>
+                <?php endforeach; ?>
+                <li id="commentTemplate" data-id="">
                   <div class="user">
                     <div class="userIcon flexCenter">
                       <div class="userIconInner"></div>
                     </div>
                     <div class="userData">
                       <div class="postUser">
-                        <p><span class="fs18">php</span> さん</p>
+                        <p><span class="fs18"><?php echo h($app->me()->name) ; ?></span> さん</p>
                       </div>
                       <div class="fs14 postdate">
-                        <p>2018年07月23日 19:10</p>
                       </div>
+                    </div>
+                    <div class="countWrap deleteComment">
+                      <p><i class="fas fa-times"></i></p>
                     </div>
                   </div>
                   <div class="caption">
-                    <p>ここにコメントを表示</p>
-                  </div>
-                </li>
-                <li>
-                  <div class="user">
-                    <div class="userIcon flexCenter">
-                      <div class="userIconInner"></div>
-                    </div>
-                    <div class="userData">
-                      <div class="postUser">
-                        <p><span class="fs18">sql</span> さん</p>
-                      </div>
-                      <div class="fs14 postdate">
-                        <p>2018年07月23日 19:35</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="caption">
-                    <p>ここにコメントを表示</p>
-                  </div>
-                </li>
-                <li>
-                  <div class="user">
-                    <div class="userIcon flexCenter">
-                      <div class="userIconInner"></div>
-                    </div>
-                    <div class="userData">
-                      <div class="postUser">
-                        <p><span class="fs18">css</span> さん</p>
-                      </div>
-                      <div class="fs14 postdate">
-                        <p>2018年07月23日 19:45</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="caption">
-                    <p>ここにコメントを表示</p>
                   </div>
                 </li>
               </ul>
-              <div class="">
-                <form class="form" action="" method="post">
-                  <textarea class="fs30" name="description" wrap="soft" value="" placeholder="コメントを追加する"></textarea>
-                  <div class="btn submitBtn">
-                    送信
-                  </div>
-                </form>
-              </div>
+              <form class="form" id="newCommentForm" action="" method="post">
+                <textarea class="fs30" id="newComment" name="description" wrap="soft" placeholder="コメントを追加する"></textarea>
+                <div class="btn submitBtn" >
+                  送信
+                </div>
+              </form>
             </div>
           </div>
+        <?php else : ?>
+          <div class="btn">
+            <a href="login.php">
+              戻る
+            </a>
+          </div>
+        <?php endif ; ?>
         </div>
-      <?php endif ; ?>
     </div>
     <footer>
       <div class="footerTitle">
@@ -278,5 +339,8 @@ $article = $app->run();
         </div>
       </div>
     <?php endif ; ?>
+    <input type="hidden" id="user_id" value="<?php echo h($app->me()->id) ; ?>">
+    <input type="hidden" id="article_id" value="<?php echo h($app->getValues()->article[0]->id) ; ?>">
+    <input type="hidden" id="token" value="<?php echo h($_SESSION['token']); ?>">
   </body>
 </html>

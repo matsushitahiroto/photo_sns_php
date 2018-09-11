@@ -10,14 +10,10 @@ class Index extends \MyApp\Controller {
 
       exit;
     }
-    //get users info
-    $userModel = new \MyApp\Model\User();
-
-    $this->setValues('users', $userModel->findAllUser());
 
     $articleModel = new \MyApp\Model\Article();
 
     $this->setValues('articles', $articleModel->findAllArticle());
-
+    $this->setValues('likeArticles', $articleModel->findAllLikeArticle());
   }
 }
