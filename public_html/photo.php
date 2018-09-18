@@ -151,12 +151,16 @@ $app->getValues()->check;
               <div class="thumbBlock">
                 <img class="thumb" src="postimage/<?php echo h(basename($app->getValues()->article[0]->savePath)); ?>" alt="メイン画像" data-image="postimage/<?php echo h(basename($app->getValues()->article[0]->savePath)); ?>">
               </div>
-              <div class="thumbBlock">
-                <img class="thumb" src="images/p2.jpg" alt="サブ画像１" data-image="images/p2.jpg">
-              </div>
-              <div class="thumbBlock">
-                <img class="thumb" src="images/p3.jpg" alt="サブ画像２" data-image="images/p3.jpg">
-              </div>
+              <?php if($app->getValues()->article[0]->savePathSub1 !== '') : ?>
+                <div class="thumbBlock">
+                  <img class="thumb" src="postimage/<?php echo h(basename($app->getValues()->article[0]->savePathSub1)); ?>" alt="メイン画像" data-image="postimage/<?php echo h(basename($app->getValues()->article[0]->savePathSub1)); ?>">
+                </div>
+              <?php endif; ?>
+              <?php if($app->getValues()->article[0]->savePathSub2 !== '') : ?>
+                <div class="thumbBlock">
+                  <img class="thumb" src="postimage/<?php echo h(basename($app->getValues()->article[0]->savePathSub2)); ?>" alt="メイン画像" data-image="postimage/<?php echo h(basename($app->getValues()->article[0]->savePathSub2)); ?>">
+                </div>
+              <?php endif; ?>
             </div>
           </div>
           <div class="postGalleryComment clear">

@@ -76,16 +76,16 @@ $app->run();
           </p>
           <p>
             メインの写真</br>
-            <input type="file" name="image" value="main">
+            <input type="file" name="images[]" value="main">
           </p>
-          <!-- <p>
+          <p>
             サブの写真１枚目</br>
-            <input type="file" name="subphoto1" value="sub1">
+            <input type="file" name="images[]" value="sub1">
           </p>
           <p>
             サブの写真２枚目</br>
-            <input type="file" name="subphoto2" value="sub2">
-          </p> -->
+            <input type="file" name="images[]" value="sub2">
+          </p>
           <p>
             <textarea class="fs24" name="description" rows="6" value="" placeholder="コメント"></textarea>
           </p>

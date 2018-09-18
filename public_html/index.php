@@ -8,9 +8,6 @@ $app->run();
 $app->getValues()->articles;
 $app->getValues()->likeArticles;
 
-// var_dump($app->getValues()->articles);
-// exit;
-
  ?>
 <!DOCTYPE html>
 <html lang="ja">

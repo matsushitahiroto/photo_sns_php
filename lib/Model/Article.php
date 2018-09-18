@@ -7,15 +7,17 @@ class Article extends \MyApp\Model {
   public function post($values) {
     $stmt = $this->db->prepare("
     insert into articles (
-      title, description, savePath, user_id, created, modified
+      title, description, savePath, savePathSub1, savePathSub2, user_id, created, modified
     ) values (
-      :title, :description, :savePath, :user_id, now(), now()
+      :title, :description, :savePath, :savePathSub1, :savePathSub2, :user_id, now(), now()
     )
     ");
     $res = $stmt->execute([
       ':title' => $values['title'],
       ':description' => $values['description'],
       ':savePath' => $values['savePath'],
+      ':savePathSub1' => $values['savePathSub1'],
+      ':savePathSub2' => $values['savePathSub2'],
       ':user_id' => $values['id']
     ]);
     if($res === false) {
@@ -111,6 +113,8 @@ class Article extends \MyApp\Model {
       articles.title,
       articles.description,
       articles.savePath,
+      articles.savePathSub1,
+      articles.savePathSub2,
       articles.created,
       articles.modified,
       users.name as name,

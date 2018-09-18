@@ -22,6 +22,8 @@ create table articles (
   title varchar(255),
   description varchar(255),
   savePath varchar(255) unique,
+  savePathSub1 varchar(255) unique,
+  savePathSub2 varchar(255) unique,
   created datetime,
   modified datetime
 );

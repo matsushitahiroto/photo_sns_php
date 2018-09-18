@@ -5,6 +5,8 @@ class Post extends \MyApp\Controller {
 
   private $_imageFileName;
   private $_imageType;
+  private $_fileDatas;
+  private $fileData;
 
   public function run() {
     if(!$this->isLoggedIn()) {
@@ -21,19 +23,48 @@ class Post extends \MyApp\Controller {
   }
 
   protected function upload() {
+    //ファイルの数をカウントする
+    $photoData = $_FILES['images']['name'];
+    $num = count($photoData);
 
+    $fileData = array();
+    $arr = array();
+    for($i = 0; $i < $num; $i++){
+      $name = $_FILES['images']['name'][$i];
+      $type = $_FILES['images']['type'][$i];
+      $tmp_name = $_FILES['images']['tmp_name'][$i];
+      $error = $_FILES['images']['error'][$i];
+      $size = $_FILES['images']['size'][$i];
+
+      $arr['name'] = $name;
+      $arr['type'] = $type;
+      $arr['tmp_name'] = $tmp_name;
+      $arr['error'] = $error;
+      $arr['size'] = $size;
+      $this->_fileDatas[] = $arr;
+    }
     try {
+      $this->_validate();
       // error check
-      $this->_validateUpload();
+      $this->_validateUploadMain();
+      // var_dump($this->_fileDatas);
+      // exit;
+      foreach ($this->_fileDatas as $this->fileData) {
+        if ($this->fileData['size'] !== 0) {
+          // error check
+          $this->_validateUpload();
+          // type check
+          $ext = $this->_validateImageType();
+          // save
+          $savePath = $this->_save($ext);
+          // create thumbnail
+          $this->_createThumbnail($savePath);
 
-      // type check
-      $ext = $this->_validateImageType();
-
-      // save
-      $savePath = $this->_save($ext);
-
-      // create thumbnail
-      $this->_createThumbnail($savePath);
+          $path[] = $savePath;
+        }
+      }
+      $path[1] = (!isset($path[1])) ? '' : $path[1];
+      $path[2] = (!isset($path[2])) ? '' : $path[2];
 
     } catch (\MyApp\Exception\InvalidTitle $e) {
       $this->setErrors('title', $e->getMessage());
@@ -55,7 +86,9 @@ class Post extends \MyApp\Controller {
         $articleModel->post([
           'title' => $_POST['title'],
           'description' => $_POST['description'],
-          'savePath' => $savePath,
+          'savePath' => $path[0],
+          'savePathSub1' => $path[1],
+          'savePathSub2' => $path[2],
           'id' => $_POST['id']
         ]);
       } catch (\MyApp\Exception\UploadError $e) {
@@ -78,6 +111,7 @@ class Post extends \MyApp\Controller {
     exit;
   }
 
+
   private function _validate() {
     if(!isset($_POST['token']) || $_POST['token'] !== $_SESSION['token']) {
       echo "不正な処理が行われました！";
@@ -95,13 +129,24 @@ class Post extends \MyApp\Controller {
     }
   }
 
-  private function _validateUpload() {
-
-    if (!isset($_FILES['image']) || !isset($_FILES['image']['error'])) {
+  private function _validateUploadMain() {
+    if (!isset($this->_fileDatas[0]) || !isset($this->_fileDatas[0]['error'])) {
       throw new \MyApp\Exception\UploadError();
     }
 
-    switch($_FILES['image']['error']) {
+    switch($this->_fileDatas[0]['error']) {
+      case UPLOAD_ERR_OK:
+        return true;
+      case UPLOAD_ERR_INI_SIZE:
+      case UPLOAD_ERR_FORM_SIZE:
+        throw new \MyApp\Exception\ImageSizeError();
+      default:
+        throw new \MyApp\Exception\UploadError();
+    }
+  }
+
+  private function _validateUpload() {
+    switch($this->fileData['error']) {
       case UPLOAD_ERR_OK:
         return true;
       case UPLOAD_ERR_INI_SIZE:
@@ -113,7 +158,7 @@ class Post extends \MyApp\Controller {
   }
 
   private function _validateImageType() {
-    $this->_imageType = exif_imagetype($_FILES['image']['tmp_name']);
+    $this->_imageType = exif_imagetype($this->fileData['tmp_name']);
     switch($this->_imageType) {
       case IMAGETYPE_GIF:
       return 'gif';
@@ -134,7 +179,7 @@ class Post extends \MyApp\Controller {
       $ext
     );
     $savePath = IMAGES_DIR . '/' . $this->_imageFileName;
-    $res = move_uploaded_file($_FILES['image']['tmp_name'], $savePath);
+    $res = move_uploaded_file($this->fileData['tmp_name'], $savePath);
     if ($res === false) {
       throw new \MyApp\Exception\UploadError();
     }
@@ -177,6 +222,5 @@ class Post extends \MyApp\Controller {
         imagepng($thumbImage, THUMBNAIL_DIR . '/' . $this->_imageFileName);
         break;
     }
-
   }
 }
