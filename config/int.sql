@@ -6,6 +6,7 @@ use photo_sns_php
 
 create table users (
   id int not null auto_increment primary key,
+  admin tinyint not null default 0,
   name varchar(255) unique,
   description varchar(255),
   email varchar(255) unique,
@@ -13,8 +14,6 @@ create table users (
   created datetime,
   modified datetime
 );
-
-desc users;
 
 create table articles (
   id int not null auto_increment primary key,
@@ -27,8 +26,6 @@ create table articles (
   created datetime,
   modified datetime
 );
-
-desc articles;
 
 create table comments (
   id int not null auto_increment primary key,

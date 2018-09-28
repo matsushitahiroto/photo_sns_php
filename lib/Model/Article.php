@@ -140,4 +140,66 @@ class Article extends \MyApp\Model {
     $stmt->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
     return $stmt->fetchAll();
   }
+
+  public function custom($values) {
+    // 内容の書き換え
+    $stmt = $this->db->prepare("
+    update articles set
+      title = :title,
+      description = :description,
+      savePath = :savePath,
+      savePathSub1 = :savePathSub1,
+      savePathSub2 = :savePathSub2,
+      modified = now()
+      where id = :id
+    ");
+    $res = $stmt->execute([
+      ':title' => $values['title'],
+      ':description' => $values['description'],
+      ':savePath' => $values['savePath'],
+      ':savePathSub1' => $values['savePathSub1'],
+      ':savePathSub2' => $values['savePathSub2'],
+      ':id' => $values['id']
+    ]);
+    if($res === false) {
+      throw new \MyApp\Exception\UploadError();
+    }
+  }
+
+  public function adminGetArticle($values) {
+    $stmt = $this->db->prepare("
+    select *
+    from articles
+    where id = :id
+    ");
+    $stmt->execute([
+      ':id' => $values['id']
+    ]);
+    $stmt->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
+    return $stmt->fetch();
+  }
+
+  public function delete($values) {
+    $stmt = $this->db->prepare("
+    delete
+    from articles
+    where id = :id
+    ");
+    $res = $stmt->execute([
+      ':id' => $values['id']
+    ]);
+    if($res === false) {
+      throw new \MyApp\Exception\DeleteError();
+    }
+  }
+
+  public function findAll() {
+    $stmt = $this->db->query("
+    select *
+    from articles
+    order by id
+    ");
+    $stmt->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
+    return $stmt->fetchAll();
+  }
 }

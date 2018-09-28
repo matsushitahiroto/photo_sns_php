@@ -67,4 +67,41 @@ class Comment extends \MyApp\Model {
     $stmt->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
     return $stmt->fetchColumn();
   }
+
+  public function adminGetComment($values) {
+    $stmt = $this->db->prepare("
+    select *
+    from comments
+    where id = :id
+    ");
+    $stmt->execute([
+      ':id' => $values['id'],
+    ]);
+    $stmt->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
+    return $stmt->fetch();
+  }
+
+  public function adminDelete($values) {
+    $stmt = $this->db->prepare("
+    delete
+    from comments
+    where id = :id
+    ");
+    $res = $stmt->execute([
+      ':id' => $values['id']
+    ]);
+    if($res === false) {
+      throw new \MyApp\Exception\DeleteError();
+    }
+  }
+
+  public function findAll() {
+    $stmt = $this->db->query("
+    select *
+    from comments
+    order by id
+    ");
+    $stmt->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
+    return $stmt->fetchAll();
+  }
 }

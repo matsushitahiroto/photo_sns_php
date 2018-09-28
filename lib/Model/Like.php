@@ -22,6 +22,7 @@ class Like extends \MyApp\Model {
     $stmt->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
     return $stmt->fetchAll();
   }
+  
   public function check($values) {
     $stmt = $this->db->prepare("
     select exists (
@@ -85,5 +86,15 @@ class Like extends \MyApp\Model {
     ]);
     $stmt->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
     return $stmt->fetchColumn();
+  }
+
+  public function findAll() {
+    $stmt = $this->db->query("
+    select *
+    from likes
+    order by id
+    ");
+    $stmt->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
+    return $stmt->fetchAll();
   }
 }

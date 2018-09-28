@@ -20,12 +20,14 @@ class Photo extends \MyApp\Controller {
     $this->setValues('likes', $likeModel->getLike([
       'article_id' => $_GET['id']
     ]));
-    // イイネ取得
-    $likeModel = new \MyApp\Model\Like();
-    $this->setValues('check', $likeModel->check([
-      'article_id' => $_GET['id'],
-      'user_id' => $_SESSION['me']->id
-    ]));
+    // イイネ済み検証
+    if (isset($_SESSION['me'])) {
+      $likeModel = new \MyApp\Model\Like();
+      $this->setValues('check', $likeModel->check([
+        'article_id' => $_GET['id'],
+        'user_id' => $_SESSION['me']->id
+      ]));
+    }
   }
 
   public function post() {

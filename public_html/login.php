@@ -132,6 +132,12 @@ $app->getValues()->likeArticles;
               新規登録
             </a>
           </div>
+          <p>管理者はこちら</p>
+          <div class="btn">
+            <a href="adminLogin.php">
+              管理者入口
+            </a>
+          </div>
         </div>
       </div>
     </div>

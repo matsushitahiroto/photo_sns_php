@@ -8,7 +8,9 @@ $app->run();
 $app->getValues()->article;
 $app->getValues()->comments;
 $app->getValues()->likes;
-$app->getValues()->check;
+if (isset($_SESSION['me'])) {
+  $app->getValues()->check;
+}
 
 // var_dump($app->getValues()->article);
 // var_dump($app->getValues()->article[0]->lc);
