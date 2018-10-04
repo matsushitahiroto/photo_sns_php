@@ -7,7 +7,7 @@ class User extends \MyApp\Model {
   public function create($values) {
     $stmt = $this->db->prepare("
     insert into users (
-      name, description, email, password, user_created, user_modified
+      name, description, email, password, created, modified
     ) values (
       :name, :description, :email, :password, now(), now()
     )
