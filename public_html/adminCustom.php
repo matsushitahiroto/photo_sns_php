@@ -29,6 +29,10 @@ $app->run();
     box-shadow: 2px 2px 5px #666;
     cursor: pointer;
   }
+  #target {
+    width: 550px;
+    height: 300px;
+  }
 </style>
 <body>
   <h1>編集画面</h1>
@@ -40,6 +44,9 @@ $app->run();
     <?php echo h($app->getErrors('demail')) ?>
     <?php echo h($app->getErrors('title')) ?>
     <?php echo h($app->getErrors('upload')) ?>
+    <?php echo h($app->getErrors('address')) ?>
+    <?php echo h($app->getErrors('lat')) ?>
+    <?php echo h($app->getErrors('lng')) ?>
   </p>
 
   <?php if ($_GET['type'] === 'user'): ?>
@@ -68,6 +75,14 @@ $app->run();
     <form action="" method="post">
       <p>記事タイトル</br><input type="text" name="title" value="<?php echo h($app->getValues()->article->title); ?>"></p>
       <p>記事紹介</br><input type="text" name="description" value="<?php echo h($app->getValues()->article->description); ?>"></p>
+      <p>住所</br><input type="text" name="address" value="<?php echo h($app->getValues()->article->address); ?>"></p>
+      <p>緯度</br><input type="text" name="lat" value="<?php echo h($app->getValues()->article->lat); ?>"></p>
+      <p>経度</br><input type="text" name="lng" value="<?php echo h($app->getValues()->article->lng); ?>"></p>
+        <div id="target"></div>
+        <input type="hidden" id="lat" value="<?php echo h($app->getValues()->article->lat) ?>">
+        <input type="hidden" id="lng" value="<?php echo h($app->getValues()->article->lng) ?>">
+        <input type="hidden" id="title" value="<?php echo h($app->getValues()->article->title) ?>">
+        <input type="hidden" id="description" value="<?php echo h($app->getValues()->article->description) ?>">
       <div class="gallery">
         <div class="thumbWap">
           <div class="thumbBlock">
@@ -96,6 +111,7 @@ $app->run();
     <a href="adminArticle.php">Go Back</a>
 
   <?php endif; ?>
-
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWa5xach73WUBlxYTkhaUHasJZ1XeIkSU&callback=initMap" async defer></script>
+  <script src="/js/googleMapsView.js"></script>
 </body>
 </html>

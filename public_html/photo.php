@@ -12,7 +12,7 @@ if (isset($_SESSION['me'])) {
   $app->getValues()->check;
 }
 
-// var_dump($app->getValues()->article);
+// var_dump($app->getValues()->article[0]->address);
 // var_dump($app->getValues()->article[0]->lc);
 // var_dump($app->getValues()->comments);
 // var_dump($app->getValues()->likes);
@@ -141,12 +141,16 @@ if (isset($_SESSION['me'])) {
             <p class="fs18"><?php echo h($app->getValues()->article[0]->title); ?></p>
           </div>
           <div class="shadowBorder"></div>
-          <div class="mapLink">
-            <div class="mapLinkIcon">
-              <p><i class="fas fa-map-marker-alt fa-3x"></i></br>map</p>
+          <?php if (isset($app->getValues()->article[0]->address) and !empty($app->getValues()->article[0]->address)): ?>
+            <div class="mapLink">
+              <a href="map.php?id=<?php echo h($app->getValues()->article[0]->id) ?>">
+                <div class="mapLinkIcon">
+                  <p><i class="fas fa-map-marker-alt fa-3x"></i></br>map</p>
+                </div>
+              </a>
+              <p><?php echo h(preg_replace('/^.+〒[0-9]{3}-[0-9]{4} /u','',$app->getValues()->article[0]->address)) ?>　付近</p>
             </div>
-            <p>群馬県板倉町　付近</p>
-          </div>
+          <?php endif; ?>
           <div class="gallery">
             <img id="bigImage" src="postimage/<?php echo h(basename($app->getValues()->article[0]->savePath)); ?>" alt="">
             <div class="thumbWap">

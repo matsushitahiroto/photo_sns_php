@@ -63,6 +63,9 @@ $app->run();
     <form action="" method="post">
       <p>記事タイトル</br><?php echo h($app->getValues()->article->title); ?></p>
       <p>記事紹介</br><?php echo h($app->getValues()->article->description); ?></p>
+      <p>住所</br><?php echo h($app->getValues()->article->address); ?></p>
+      <p>緯度</br><?php echo h($app->getValues()->article->lat); ?></p>
+      <p>経度</br><?php echo h($app->getValues()->article->lng); ?></p>
       <div class="gallery">
         <div class="thumbWap">
           <div class="thumbBlock">

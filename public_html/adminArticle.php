@@ -45,6 +45,9 @@ $app->getValues()->articles;
          <th>savePath</th>
          <th>savePathSab1</th>
          <th>savePathSab2</th>
+         <th>address</th>
+         <th>lat</th>
+         <th>lng</th>
          <th>created</th>
          <th>modifid</th>
        </tr>
@@ -63,6 +66,9 @@ $app->getValues()->articles;
            <td><?php echo h($article->savePath); ?></td>
            <td><?php echo h($article->savePathSub1); ?></td>
            <td><?php echo h($article->savePathSub2); ?></td>
+           <td><?php echo h($article->address); ?></td>
+           <td><?php echo h($article->lat); ?></td>
+           <td><?php echo h($article->lng); ?></td>
            <td><?php echo h($article->created); ?></td>
            <td><?php echo h($article->modified); ?></td>
          </tr>

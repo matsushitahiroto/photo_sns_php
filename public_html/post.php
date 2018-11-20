@@ -86,6 +86,12 @@ $app->run();
             サブの写真２枚目</br>
             <input type="file" name="images[]" value="sub2">
           </p>
+          <!-- <p><input type="text" id="keyword" placeholder="検索"></p>
+          <p><button class="btn" id="search">Serch</button></p> -->
+          <div id="target"></div>
+          <p>住所：<input type="text" name="address" id="address" value=""></p>
+          <p>緯度：<input type="text" name="lat" id="lat" value=""></p>
+          <p>経度：<input type="text" name="lng" id="lng" value=""></p>
           <p>
             <textarea class="fs24" name="description" rows="6" value="" placeholder="コメント"></textarea>
           </p>
@@ -98,6 +104,9 @@ $app->run();
             <?php echo h($app->getErrors('size')); ?>
             <?php echo h($app->getErrors('type')); ?>
             <?php echo h($app->getErrors('image')); ?>
+            <?php echo h($app->getErrors('address')); ?>
+            <?php echo h($app->getErrors('lat')); ?>
+            <?php echo h($app->getErrors('lng')); ?>
             <?php echo h($app->getErrors('login')); ?>
           </div>
 
@@ -149,5 +158,7 @@ $app->run();
         </a>
       </div>
     </div>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWa5xach73WUBlxYTkhaUHasJZ1XeIkSU&callback=initMap" async defer></script>
+    <script src="/js/googleMapsPost.js"></script>
   </body>
 </html>

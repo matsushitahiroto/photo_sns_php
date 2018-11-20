@@ -115,6 +115,12 @@ class AdminCustom extends \MyApp\Controller {
       $this->setErrors('title', $e->getMessage());
     } catch (\MyApp\Exception\InvalidDescription $e) {
       $this->setErrors('description', $e->getMessage());
+    } catch (\MyApp\Exception\InvalidAddress $e) {
+      $this->setErrors('address', $e->getMessage());
+    } catch (\MyApp\Exception\InvalidLatitude $e) {
+      $this->setErrors('lat', $e->getMessage());
+    } catch (\MyApp\Exception\InvalidLongitude $e) {
+      $this->setErrors('lng', $e->getMessage());
     }
 
     if($this->hasError()) {
@@ -128,6 +134,9 @@ class AdminCustom extends \MyApp\Controller {
           'savePath' => $_POST['savePath'],
           'savePathSub1' => $_POST['savePathSub1'],
           'savePathSub2' => $_POST['savePathSub2'],
+          'address' => $_POST['address'],
+          'lat' => $_POST['lat'],
+          'lng' => $_POST['lng'],
           'id' => $_POST['id']
         ]);
       } catch (\MyApp\Exception\UploadError $e) {
@@ -146,13 +155,28 @@ class AdminCustom extends \MyApp\Controller {
       exit;
     }
     if($_POST['title'] !== '') {
-      if(!preg_match('/^[ぁ-んァ-ヶーa-zA-Z0-9一-龠０-９、。\n\r]+$/u', $_POST['title'])) {
+      if(!preg_match('/^[ぁ-んァ-ヶ一-龠０-９、。,\.ー＿\-\w\s]+$/u', $_POST['title'])) {
         throw new \MyApp\Exception\InvalidTitle();
       }
     }
     if($_POST['description'] !== '') {
-      if(!preg_match('/^[ぁ-んァ-ヶーa-zA-Z0-9一-龠０-９、。\n\r]+$/u', $_POST['description'])) {
+      if(!preg_match('/^[ぁ-んァ-ヶ一-龠０-９、。,\.ー＿\-\w\s]+$/u', $_POST['description'])) {
         throw new \MyApp\Exception\InvalidDescription();
+      }
+    }
+    if($_POST['address'] !== '') {
+      if(!preg_match('/^[ぁ-んァ-ヶ一-龠０-９〒、。,\.ー－−＿\-\w\s]+$/u', $_POST['address'])) {
+        throw new \MyApp\Exception\InvalidAddress();
+      }
+    }
+    if($_POST['lat'] !== '') {
+      if(!preg_match('/[0-9\.]+/u', $_POST['lat'])) {
+        throw new \MyApp\Exception\InvalidLatitude();
+      }
+    }
+    if($_POST['lng'] !== '') {
+      if(!preg_match('/[0-9\.]+/u', $_POST['lng'])) {
+        throw new \MyApp\Exception\InvalidLongitude();
       }
     }
   }

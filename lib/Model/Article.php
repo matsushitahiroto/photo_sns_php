@@ -7,9 +7,9 @@ class Article extends \MyApp\Model {
   public function post($values) {
     $stmt = $this->db->prepare("
     insert into articles (
-      title, description, savePath, savePathSub1, savePathSub2, user_id, created, modified
+      title, description, savePath, savePathSub1, savePathSub2, address, lat, lng, user_id, created, modified
     ) values (
-      :title, :description, :savePath, :savePathSub1, :savePathSub2, :user_id, now(), now()
+      :title, :description, :savePath, :savePathSub1, :savePathSub2, :address, :lat, :lng, :user_id, now(), now()
     )
     ");
     $res = $stmt->execute([
@@ -18,6 +18,9 @@ class Article extends \MyApp\Model {
       ':savePath' => $values['savePath'],
       ':savePathSub1' => $values['savePathSub1'],
       ':savePathSub2' => $values['savePathSub2'],
+      ':address' => $values['address'],
+      ':lat' => $values['lat'],
+      ':lng' => $values['lng'],
       ':user_id' => $values['id']
     ]);
     if($res === false) {
@@ -115,6 +118,9 @@ class Article extends \MyApp\Model {
       articles.savePath,
       articles.savePathSub1,
       articles.savePathSub2,
+      articles.address,
+      articles.lat,
+      articles.lng,
       articles.created,
       articles.modified,
       users.name as name,
@@ -150,6 +156,9 @@ class Article extends \MyApp\Model {
       savePath = :savePath,
       savePathSub1 = :savePathSub1,
       savePathSub2 = :savePathSub2,
+      address = :address,
+      lat = :lat,
+      lng = :lng,
       modified = now()
       where id = :id
     ");
@@ -159,6 +168,9 @@ class Article extends \MyApp\Model {
       ':savePath' => $values['savePath'],
       ':savePathSub1' => $values['savePathSub1'],
       ':savePathSub2' => $values['savePathSub2'],
+      ':address' => $values['address'],
+      ':lat' => $values['lat'],
+      ':lng' => $values['lng'],
       ':id' => $values['id']
     ]);
     if($res === false) {

@@ -78,6 +78,13 @@
 }
 
 /* post.php */
+
+#target {
+  max-width: 550px;
+  height: 300px;
+  margin: 20px auto;
+}
+
 /* postGallery */
 
 .mapLink {

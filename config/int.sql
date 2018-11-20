@@ -23,6 +23,9 @@ create table articles (
   savePath varchar(255) unique,
   savePathSub1 varchar(255) unique,
   savePathSub2 varchar(255) unique,
+  address varchar(255),
+  lat varchar(255),
+  lng varchar(255),
   created datetime,
   modified datetime
 );
