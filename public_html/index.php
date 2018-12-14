@@ -39,7 +39,8 @@ $app->getValues()->likeArticles;
             <div class="headerMenu hidden" id="menu">
               <div class="user">
                 <div class="userIcon flexCenter">
-                  <div class="userIconInner"></div>
+                  <img src="/croppedImage/1541188562_611eb16cf93c4b73bc3b54431059c0f7d83d0a6f.jpg" alt="ゲスト写真"  class="userIconInner">
+
                 </div>
                 <div class="userData">
                   <div class="postUser">
@@ -80,7 +81,7 @@ $app->getValues()->likeArticles;
         <div class="selecter">
           <div class="selecterInner">
             <div class="left flexCenter btnBox">
-              <div class="selecterBtn flexCenter green height45px" id="green">
+              <div class="selecterBtn flexCenter green height50px" id="green">
                 新着
               </div>
             </div>
@@ -95,10 +96,12 @@ $app->getValues()->likeArticles;
             <div class="thumbWap">
               <?php foreach ($app->getValues()->articles as $article) : ?>
                 <div class="thumbBlock">
-                  <a href="photo.php?id=<?php echo h($article->id); ?>">
-                    <img src="postimage/<?php echo h(basename($article->savePath)); ?>" alt="">
-                    <p><i class="far fa-thumbs-up"></i><?php echo h($article->lc); ?>  <i class="far fa-comment-alt"></i><?php echo h($article->cc); ?></p>
-                  </a>
+                  <div class="inner">
+                    <a href="photo.php?id=<?php echo h($article->id); ?>">
+                      <img src="postimage/<?php echo h(basename($article->savePath)); ?>" alt="">
+                    </a>
+                  </div>
+                  <p><i class="far fa-thumbs-up"></i><?php echo h($article->lc); ?>  <i class="far fa-comment-alt"></i><?php echo h($article->cc); ?></p>
                 </div>
               <?php endforeach; ?>
             </div>
@@ -107,10 +110,12 @@ $app->getValues()->likeArticles;
             <div class="thumbWap">
               <?php foreach ($app->getValues()->likeArticles as $likeArticle) : ?>
                 <div class="thumbBlock">
-                  <a href="photo.php?id=<?php echo h($likeArticle->id); ?>">
-                    <img src="postimage/<?php echo h(basename($likeArticle->savePath)); ?>" alt="">
-                    <p><i class="far fa-thumbs-up"></i><?php echo h($likeArticle->lc); ?>  <i class="far fa-comment-alt"></i><?php echo h($likeArticle->cc); ?></p>
-                  </a>
+                  <div class="inner">
+                    <a href="photo.php?id=<?php echo h($likeArticle->id); ?>">
+                      <img src="postimage/<?php echo h(basename($likeArticle->savePath)); ?>" alt="">
+                    </a>
+                  </div>
+                  <p><i class="far fa-thumbs-up"></i><?php echo h($likeArticle->lc); ?>  <i class="far fa-comment-alt"></i><?php echo h($likeArticle->cc); ?></p>
                 </div>
               <?php endforeach; ?>
             </div>
@@ -122,54 +127,57 @@ $app->getValues()->likeArticles;
       <div class="guest">
         <h2>ようこそ！</h2>
         <div class="guestUser">
-          <div class="guestIcon flexCenter">
-            <div class="guestIconInner"></div>
-          </div>
-          <div class="guestData fs14">
-            <div class="height50 flexCenter">
-              <p><span class="fs24"><?php echo h($app->me()->name); ?></span> さん</p>
+          <div class="guestInner">
+            <div class="guestIcon">
+              <img src="/croppedImage/1541188562_611eb16cf93c4b73bc3b54431059c0f7d83d0a6f.jpg" alt="ゲスト写真"  class="guestIconInner">
             </div>
-            <div class="height50 flexCenter">
-              <p><span class="fs24"><?php echo h($app->me()->ac); ?></span></br>投稿</p>
+            <div class="guestData fs14">
+              <div class="height50">
+                <p><span class="fs24"><?php echo h($app->me()->name); ?></span> さん</p>
+              </div>
+              <div class="height50">
+                <p><span class="fs24"><?php echo h($app->me()->ac); ?></span></br>投稿</p>
+              </div>
             </div>
-          </div>
-        </div>
-        <div class="selecterInner">
-          <div class="flexCenter btnBox">
-            <div class="btn flexCenter">
-              <a href="profile.php">
-                アカウント
-              </a>
+            <div class="guestBtnWrap">
+              <div class="btnBox">
+                <a href="profile.php">
+                  <div class="btn">
+                      アカウント
+                  </div>
+                </a>
+              </div>
+              <div class="btnBox">
+                <a href="post.php">
+                  <div class="btn">
+                      新規投稿
+                  </div>
+                </a>
+              </div>
             </div>
-          </div>
-          <div class="flexCenter btnBox">
-            <div class="btn flexCenter">
-              <a href="post.php">
-                新規投稿
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="selecterInner">
-          <div class="flexCenter btnBox">
-            <div class="btn flexCenter">
-              <a href="custom.php">
-                編集
-              </a>
-            </div>
-          </div>
-          <div class="flexCenter btnBox">
-            <div class="btn submitBtn">
-              <form action="logout.php" method="post" id="logout">
-                <input type="hidden" name="token" value="<?php echo h($_SESSION['token']); ?>">
-                <div onclick="document.getElementById('logout').submit();">
-                  ログアウト
+            <div class="guestBtnWrap">
+              <div class="btnBox">
+                <a href="custom.php">
+                  <div class="btn">
+                      編集
+                  </div>
+                </a>
+              </div>
+              <div class="btnBox">
+                <div class="btn submitBtn">
+                  <form action="logout.php" method="post" id="logout">
+                    <input type="hidden" name="token" value="<?php echo h($_SESSION['token']); ?>">
+                    <div onclick="document.getElementById('logout').submit();">
+                      ログアウト
+                    </div>
+                  </form>
                 </div>
-              </form>
+              </div>
             </div>
           </div>
         </div>
       </div>
+
       <div class="footerMenu">
         <div class="footerMenuInner flexCenter">
           <a href="">

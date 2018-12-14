@@ -54,18 +54,18 @@ $app->run();
           <h2>始めよう！</h2>
           <div class="selecterInner">
             <div class="flexCenter btnBox">
-              <div class="btn flexCenter">
-                <a href="login.php#form">
-                  ログイン
-                </a>
-              </div>
+              <a href="login.php#form">
+                <div class="btn flexCenter">
+                    ログイン
+                </div>
+              </a>
             </div>
             <div class="flexCenter btnBox">
-              <div class="btn flexCenter">
-                <a href="signup.php#form">
-                  新規登録
-                </a>
-              </div>
+              <a href="signup.php#form">
+                <div class="btn flexCenter">
+                    新規登録
+                </div>
+              </a>
             </div>
           </div>
         </div>
@@ -114,11 +114,11 @@ $app->run();
             <div class="btn submitBtn" onclick="document.getElementById('signup').submit();">
               登録
             </div>
-            <div class="btn">
-              <a href="login.php">
+            <a href="login.php">
+              <div class="btn">
                 戻る
-              </a>
-            </div>
+              </div>
+            </a>
           </form>
         </div>
       </div>

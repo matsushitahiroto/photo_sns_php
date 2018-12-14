@@ -40,7 +40,7 @@ $app->run();
             <div class="headerMenu hidden" id="menu">
               <div class="user">
                 <div class="userIcon flexCenter">
-                  <div class="userIconInner"></div>
+                  <img src="/croppedImage/1541188562_611eb16cf93c4b73bc3b54431059c0f7d83d0a6f.jpg" alt="ゲスト写真"  class="userIconInner">
                 </div>
                 <div class="userData">
                   <div class="postUser">

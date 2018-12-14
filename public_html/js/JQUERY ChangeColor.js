@@ -1,7 +1,7 @@
 $(document).ready(function(){
   $("#green").on('click', function(){
-    $(this).addClass('height45px');
-    $('#orange').removeClass('height45px');
+    $(this).addClass('height50px');
+    $('#orange').removeClass('height50px');
     if($('#border').hasClass('orange')) {
       $('#border').removeClass('orange');
       $('#border').addClass('green');
@@ -12,8 +12,8 @@ $(document).ready(function(){
     }
   });
   $("#orange").on('click', function(){
-    $(this).addClass('height45px');
-    $('#green').removeClass('height45px');
+    $(this).addClass('height50px');
+    $('#green').removeClass('height50px');
     if($('#border').hasClass('green')) {
       $('#border').removeClass('green');
       $('#border').addClass('orange');

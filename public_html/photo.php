@@ -55,7 +55,7 @@ if (isset($_SESSION['me'])) {
               <?php if($app->me()) : ?>
                 <div class="user">
                   <div class="userIcon flexCenter">
-                    <div class="userIconInner"></div>
+                    <img src="/croppedImage/1541188562_611eb16cf93c4b73bc3b54431059c0f7d83d0a6f.jpg" alt="ゲスト写真"  class="userIconInner">
                   </div>
                   <div class="userData">
                     <div class="postUser">
@@ -94,7 +94,7 @@ if (isset($_SESSION['me'])) {
       <div class="container">
         <div class="user">
           <div class="userIcon flexCenter">
-            <div class="userIconInner"></div>
+            <img src="/croppedImage/1541188562_611eb16cf93c4b73bc3b54431059c0f7d83d0a6f.jpg" alt="ゲスト写真"  class="userIconInner">
           </div>
           <div class="userData">
             <div class="postUser">
@@ -154,17 +154,23 @@ if (isset($_SESSION['me'])) {
           <div class="gallery">
             <img id="bigImage" src="postimage/<?php echo h(basename($app->getValues()->article[0]->savePath)); ?>" alt="">
             <div class="thumbWap">
-              <div class="thumbBlock">
-                <img class="thumb" src="postimage/<?php echo h(basename($app->getValues()->article[0]->savePath)); ?>" alt="メイン画像" data-image="postimage/<?php echo h(basename($app->getValues()->article[0]->savePath)); ?>">
+              <div class="photoThumbBlock">
+                <div class="inner">
+                  <img class="thumb" src="postimage/<?php echo h(basename($app->getValues()->article[0]->savePath)); ?>" alt="メイン画像" data-image="postimage/<?php echo h(basename($app->getValues()->article[0]->savePath)); ?>">
+                </div>
               </div>
               <?php if($app->getValues()->article[0]->savePathSub1 !== '') : ?>
-                <div class="thumbBlock">
-                  <img class="thumb" src="postimage/<?php echo h(basename($app->getValues()->article[0]->savePathSub1)); ?>" alt="メイン画像" data-image="postimage/<?php echo h(basename($app->getValues()->article[0]->savePathSub1)); ?>">
+                <div class="photoThumbBlock">
+                  <div class="inner">
+                    <img class="thumb" src="postimage/<?php echo h(basename($app->getValues()->article[0]->savePathSub1)); ?>" alt="サブ画像" data-image="postimage/<?php echo h(basename($app->getValues()->article[0]->savePathSub1)); ?>">
+                  </div>
                 </div>
               <?php endif; ?>
               <?php if($app->getValues()->article[0]->savePathSub2 !== '') : ?>
-                <div class="thumbBlock">
-                  <img class="thumb" src="postimage/<?php echo h(basename($app->getValues()->article[0]->savePathSub2)); ?>" alt="メイン画像" data-image="postimage/<?php echo h(basename($app->getValues()->article[0]->savePathSub2)); ?>">
+                <div class="photoThumbBlock">
+                  <div class="inner">
+                    <img class="thumb" src="postimage/<?php echo h(basename($app->getValues()->article[0]->savePathSub2)); ?>" alt="サブ画像" data-image="postimage/<?php echo h(basename($app->getValues()->article[0]->savePathSub2)); ?>">
+                  </div>
                 </div>
               <?php endif; ?>
             </div>
@@ -209,7 +215,7 @@ if (isset($_SESSION['me'])) {
                 </div>
               </div>
               <div class="flexCenter btnBox">
-                <div class="selecterBtn flexCenter orange height45px" id="orange">
+                <div class="selecterBtn flexCenter orange height50px" id="orange">
                   <i class="far fa-comment-alt"></i>コメント
                 </div>
               </div>
@@ -221,7 +227,7 @@ if (isset($_SESSION['me'])) {
                   <li id="like_<?php echo h($like->id) ; ?>" data-id="<?php echo h($like->id) ; ?>">
                     <div class="user">
                       <div class="userIcon flexCenter">
-                        <div class="userIconInner"></div>
+                        <img src="/croppedImage/1541188562_611eb16cf93c4b73bc3b54431059c0f7d83d0a6f.jpg" alt="ゲスト写真"  class="userIconInner">
                       </div>
                       <div class="userData">
                         <div class="postUser">
@@ -242,7 +248,7 @@ if (isset($_SESSION['me'])) {
                 <li id="likeTemplate" data-id="">
                   <div class="user">
                     <div class="userIcon flexCenter">
-                      <div class="userIconInner"></div>
+                      <img src="/croppedImage/1541188562_611eb16cf93c4b73bc3b54431059c0f7d83d0a6f.jpg" alt="ゲスト写真"  class="userIconInner">
                     </div>
                     <div class="userData">
                       <div class="postUser">
@@ -264,7 +270,7 @@ if (isset($_SESSION['me'])) {
                   <li id="comment_<?php echo h($comment->id) ; ?>" data-id="<?php echo h($comment->id) ; ?>">
                     <div class="user">
                       <div class="userIcon flexCenter">
-                        <div class="userIconInner"></div>
+                        <img src="/croppedImage/1541188562_611eb16cf93c4b73bc3b54431059c0f7d83d0a6f.jpg" alt="ゲスト写真"  class="userIconInner">
                       </div>
                       <div class="userData">
                         <div class="postUser">
@@ -288,7 +294,7 @@ if (isset($_SESSION['me'])) {
                 <li id="commentTemplate" data-id="">
                   <div class="user">
                     <div class="userIcon flexCenter">
-                      <div class="userIconInner"></div>
+                      <img src="/croppedImage/1541188562_611eb16cf93c4b73bc3b54431059c0f7d83d0a6f.jpg" alt="ゲスト写真"  class="userIconInner">
                     </div>
                     <div class="userData">
                       <div class="postUser">
@@ -314,11 +320,11 @@ if (isset($_SESSION['me'])) {
             </div>
           </div>
         <?php else : ?>
-          <div class="btn">
-            <a href="login.php">
-              戻る
-            </a>
-          </div>
+          <a href="login.php">
+            <div class="btn">
+                戻る
+            </div>
+          </a>
         <?php endif ; ?>
         </div>
     </div>

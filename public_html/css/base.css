@@ -156,12 +156,49 @@ header {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  align-items: stretch;
 }
 
 .thumbBlock {
   width: 33.333%;
   margin-top: 5px;
   padding: 1px;
+}
+
+.inner {
+  position: relative;
+  width: auto;
+  height: auto;
+  overflow: hidden;
+}
+
+.inner:before {
+    content:"";
+    display: block;
+    padding-top: 100%;
+}
+.inner a {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.inner img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  height: 100%;
+  width: auto;
+}
+
+.thumbBlock p {
+  margin: 10px auto;
 }
 
 .thumb {
@@ -182,7 +219,6 @@ header {
 
 input[type="name"],
 input[type="email"],
-input[type="password"],
 input[type="text"],
 input[type="password"] {
   font-size: 16px;
@@ -195,8 +231,9 @@ input[type="password"] {
 }
 
 textarea {
-  width: 100%;
-  box-sizing: border-box;
+  width: 300px;
+  border-radius: 5px;
+  box-shadow: 2px 2px 4px #ddd;
 }
 
 /* footer */
@@ -231,7 +268,7 @@ footer {
   text-align: right;
   text-shadow: -2px 2px 4px #f80;
   color: #333;
-  margin: 10px 10px 10px 0;
+  margin: 10px 20px;
 }
 
 address {
@@ -258,4 +295,71 @@ address {
 
 .menuIcon a {
   color: #666;
+}
+
+/* tablet */
+@media (min-width:650px) {
+
+  .thumbBlock {
+    width: 25%;
+    margin-top: 5px;
+    padding: 1px;
+  }
+
+  input[type="name"],
+  input[type="email"],
+  input[type="text"],
+  input[type="password"] {
+    font-size: 16px;
+    font-weight: bold;
+    width: 500px;
+    height: 24px;
+    padding: 4px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 4px #ddd;
+  }
+
+  textarea {
+    width: 550px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 4px #ddd;
+  }
+}
+
+/* pc */
+@media (min-width:820px) {
+
+  .gallery {
+    max-width: 980px;
+    margin: auto;
+  }
+
+  .thumbBlock {
+    width: 25%;
+    margin-top: 5px;
+    padding: 8px;
+  }
+
+
+  .form {
+    width: 100%;
+    padding-top: 20px;
+    background-color: #ddd;
+  }
+
+  .formWap {
+    max-width: 820px;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .loginForm {
+    flex-grow: 1;
+  }
+
+  .loginFormBtn {
+    flex-grow: 1;
+  }
+
 }

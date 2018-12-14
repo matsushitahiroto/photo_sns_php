@@ -17,8 +17,8 @@ $(function(){
         token: $('#token').val()
       }, function(res){
         $('.thumbs-up').addClass('orangeIcon');
-        $("#green").addClass('height45px');
-        $('#orange').removeClass('height45px');
+        $("#green").addClass('height50px');
+        $('#orange').removeClass('height50px');
         if($('#border').hasClass('orange')) {
           $('#border').removeClass('orange');
           $('#border').addClass('green');

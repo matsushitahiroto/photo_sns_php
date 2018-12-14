@@ -50,7 +50,7 @@ $app->getValues()->article;
               <?php if($app->me()) : ?>
                 <div class="user">
                   <div class="userIcon flexCenter">
-                    <div class="userIconInner"></div>
+                    <img src="/croppedImage/1541188562_611eb16cf93c4b73bc3b54431059c0f7d83d0a6f.jpg" alt="ゲスト写真"  class="userIconInner">
                   </div>
                   <div class="userData">
                     <div class="postUser">
@@ -93,11 +93,11 @@ $app->getValues()->article;
         <input type="hidden" name="title" id="title" value="<?php echo h($app->getValues()->article[0]->title) ?>">
         <input type="hidden" name="description" id="description" value="<?php echo h($app->getValues()->article[0]->description) ?>">
       </div>
-      <div class="btn">
-        <a href="photo.php?id=<?php echo h($app->getValues()->article[0]->id) ?>">
-          戻る
-        </a>
-      </div>
+      <a href="photo.php?id=<?php echo h($app->getValues()->article[0]->id) ?>">
+        <div class="btn">
+            戻る
+        </div>
+      </a>
     </div>
     <footer>
       <div class="footerTitle">

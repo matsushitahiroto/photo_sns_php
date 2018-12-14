@@ -43,7 +43,7 @@ $app->getValues()->articles;
             <div class="headerMenu hidden" id="menu">
               <div class="user">
                 <div class="userIcon flexCenter">
-                  <div class="userIconInner"></div>
+                  <img src="/croppedImage/1541188562_611eb16cf93c4b73bc3b54431059c0f7d83d0a6f.jpg" alt="ゲスト写真"  class="userIconInner">
                 </div>
                 <div class="userData">
                   <div class="postUser">
@@ -74,7 +74,7 @@ $app->getValues()->articles;
       <div class="container">
         <div class="user">
           <div class="userIcon flexCenter">
-            <div class="userIconInner"></div>
+            <img src="/croppedImage/1541188562_611eb16cf93c4b73bc3b54431059c0f7d83d0a6f.jpg" alt="ゲスト写真"  class="userIconInner">
           </div>
           <div class="userData">
             <div class="postUser">
@@ -94,10 +94,12 @@ $app->getValues()->articles;
           <div class="thumbWap">
             <?php foreach ($app->getValues()->articles as $article) : ?>
               <div class="thumbBlock">
-                <a href="photo.php?id=<?php echo h($article->id); ?>">
-                  <img src="postimage/<?php echo h(basename($article->savePath)); ?>" alt="">
-                  <p><i class="far fa-thumbs-up"></i><?php echo h($article->lc); ?>  <i class="far fa-comment-alt"></i><?php echo h($article->cc); ?></p>
-                </a>
+                <div class="inner">
+                  <a href="photo.php?id=<?php echo h($article->id); ?>">
+                    <img src="postimage/<?php echo h(basename($article->savePath)); ?>" alt="">
+                  </a>
+                </div>
+                <p><i class="far fa-thumbs-up"></i><?php echo h($article->lc); ?>  <i class="far fa-comment-alt"></i><?php echo h($article->cc); ?></p>
               </div>
             <?php endforeach; ?>
           </div>

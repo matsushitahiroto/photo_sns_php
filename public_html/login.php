@@ -57,18 +57,18 @@ $app->getValues()->likeArticles;
           </div>
           <div class="keyVisual">
             <div class="keyVisualLink">
-              <h2>
-                <a href="signup.php">
-                  今すぐはじめる！<br><i class="fas fa-sign-in-alt"></i>
-                </a>
-              </h2>
+              <a href="signup.php">
+                <p>
+                    今すぐはじめる！<br><i class="fas fa-sign-in-alt"></i>
+                </p>
+              </a>
             </div>
           </div>
         </div>
         <div class="selecter">
           <div class="selecterInner">
             <div class="left flexCenter btnBox">
-              <div class="selecterBtn flexCenter green height45px" id="green">
+              <div class="selecterBtn flexCenter green height50px" id="green">
                 新着
               </div>
             </div>
@@ -83,10 +83,12 @@ $app->getValues()->likeArticles;
             <div class="thumbWap">
               <?php foreach ($app->getValues()->articles as $article) : ?>
                 <div class="thumbBlock">
-                  <a href="photo.php?id=<?php echo h($article->id); ?>">
-                    <img src="postimage/<?php echo h(basename($article->savePath)); ?>" alt="">
-                    <p><i class="far fa-thumbs-up"></i><?php echo h($article->lc); ?>  <i class="far fa-comment-alt"></i><?php echo h($article->cc); ?></p>
-                  </a>
+                  <div class="inner">
+                    <a href="photo.php?id=<?php echo h($article->id); ?>">
+                      <img src="postimage/<?php echo h(basename($article->savePath)); ?>" alt="">
+                    </a>
+                  </div>
+                  <p><i class="far fa-thumbs-up"></i><?php echo h($article->lc); ?>  <i class="far fa-comment-alt"></i><?php echo h($article->cc); ?></p>
                 </div>
               <?php endforeach; ?>
             </div>
@@ -95,48 +97,54 @@ $app->getValues()->likeArticles;
             <div class="thumbWap">
               <?php foreach ($app->getValues()->likeArticles as $likeArticle) : ?>
                 <div class="thumbBlock">
-                  <a href="photo.php?id=<?php echo h($likeArticle->id); ?>">
-                    <img src="postimage/<?php echo h(basename($likeArticle->savePath)); ?>" alt="">
-                    <p><i class="far fa-thumbs-up"></i><?php echo h($likeArticle->lc); ?>  <i class="far fa-comment-alt"></i><?php echo h($likeArticle->cc); ?></p>
-                  </a>
+                  <div class="inner">
+                    <a href="photo.php?id=<?php echo h($likeArticle->id); ?>">
+                      <img src="postimage/<?php echo h(basename($likeArticle->savePath)); ?>" alt="">
+                    </a>
+                  </div>
+                  <p><i class="far fa-thumbs-up"></i><?php echo h($likeArticle->lc); ?>  <i class="far fa-comment-alt"></i><?php echo h($likeArticle->cc); ?></p>
                 </div>
               <?php endforeach; ?>
             </div>
           </div>
         </div>
         <div id="form" class="form">
-          <div class="loginForm">
-            <form action="" method="post" id="login">
-              <p class="name">
-                <input type="name" name="name" placeholder="ユーザー名">
-              </p>
-              <p class="email">
-                <input type="email" name="email" placeholder="メールアドレス">
-              </p>
-              <p class="password">
-                <input type="password" name="password" placeholder="パスワード">
-              </p>
-              <input type="hidden" name="token" value="<?php echo h($_SESSION['token']); ?>">
-              <p class="err">
-                <?php echo h($app->getErrors('login')); ?>
-                <?php echo h($app->getErrors('load')); ?>
-              </p>
+          <div class="formWap">
+            <div class="loginForm">
+              <form action="" method="post" id="login">
+                <p class="name">
+                  <input type="name" name="name" placeholder="ユーザー名">
+                </p>
+                <p class="email">
+                  <input type="email" name="email" placeholder="メールアドレス">
+                </p>
+                <p class="password">
+                  <input type="password" name="password" placeholder="パスワード">
+                </p>
+                <input type="hidden" name="token" value="<?php echo h($_SESSION['token']); ?>">
+                <p class="err">
+                  <?php echo h($app->getErrors('login')); ?>
+                  <?php echo h($app->getErrors('load')); ?>
+                </p>
+              </form>
+            </div>
+            <div class="loginFormBtn">
               <div class="btn submitBtn" onclick="document.getElementById('login').submit();">
                 ログイン
               </div>
-            </form>
-          </div>
-          <p>アカウントをお持ちでない方はこちら</p>
-          <div class="btn">
-            <a href="signup.php">
-              新規登録
-            </a>
-          </div>
-          <p>管理者はこちら</p>
-          <div class="btn">
-            <a href="adminLogin.php">
-              管理者入口
-            </a>
+              <p>アカウントをお持ちでない方はこちら</p>
+              <a href="signup.php">
+                <div class="btn">
+                    新規登録
+                </div>
+              </a>
+              <p>管理者はこちら</p>
+              <a href="adminLogin.php">
+                <div class="btn">
+                    管理者入口
+                </div>
+              </a>
+            </div>
           </div>
         </div>
       </div>
