@@ -46,6 +46,7 @@ class User extends \MyApp\Model {
     // 内容の書き換え
     $stmt = $this->db->prepare("
     update users set
+      iconPath = :iconPath,
       name = :name,
       description = :description,
       email = :email,
@@ -53,6 +54,7 @@ class User extends \MyApp\Model {
       where id = :id
     ");
     $res = $stmt->execute([
+      ':iconPath' => $values['iconPath'],
       ':name' => $values['name'],
       ':description' => $values['description'],
       ':email' => $values['email'],
@@ -67,6 +69,7 @@ class User extends \MyApp\Model {
     // 再度ログイン
     $stmt = $this->db->prepare("
     select
+      users.iconPath,
       users.id,
       users.name,
       users.description,
@@ -96,6 +99,7 @@ class User extends \MyApp\Model {
   public function login($values) {
     $stmt = $this->db->prepare("
     select
+      users.iconPath,
       users.id,
       users.name,
       users.description,

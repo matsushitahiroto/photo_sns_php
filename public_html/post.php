@@ -40,7 +40,12 @@ $app->run();
             <div class="headerMenu hidden" id="menu">
               <div class="user">
                 <div class="userIcon flexCenter">
-                  <img src="/croppedImage/1541188562_611eb16cf93c4b73bc3b54431059c0f7d83d0a6f.jpg" alt="ゲスト写真"  class="userIconInner">
+                  <?php if(!isset($app->me()->iconPath)): ?>
+                    <div class="userIconInner">
+                    </div>
+                  <?php else: ?>
+                  <img src="<?php echo h($app->me()->iconPath); ?>" alt="ゲスト写真"  class="userIconInner">
+                  <?php endif; ?>
                 </div>
                 <div class="userData">
                   <div class="postUser">

@@ -10,9 +10,10 @@ class Like extends \MyApp\Model {
       likes.id,
       likes.user_id,
       likes.created,
+      users.iconPath,
       users.name
     from likes
-    join users
+    left join users
     on likes.user_id = users.id
     where likes.article_id = :article_id
     ");
@@ -22,7 +23,7 @@ class Like extends \MyApp\Model {
     $stmt->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
     return $stmt->fetchAll();
   }
-  
+
   public function check($values) {
     $stmt = $this->db->prepare("
     select exists (

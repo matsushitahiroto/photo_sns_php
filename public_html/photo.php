@@ -55,7 +55,12 @@ if (isset($_SESSION['me'])) {
               <?php if($app->me()) : ?>
                 <div class="user">
                   <div class="userIcon flexCenter">
-                    <img src="/croppedImage/1541188562_611eb16cf93c4b73bc3b54431059c0f7d83d0a6f.jpg" alt="ゲスト写真"  class="userIconInner">
+                    <?php if(!isset($app->me()->iconPath)): ?>
+                      <div class="userIconInner">
+                      </div>
+                    <?php else: ?>
+                    <img src="<?php echo h($app->me()->iconPath); ?>" alt="ゲスト写真"  class="userIconInner">
+                    <?php endif; ?>
                   </div>
                   <div class="userData">
                     <div class="postUser">
@@ -94,11 +99,20 @@ if (isset($_SESSION['me'])) {
       <div class="container">
         <div class="user">
           <div class="userIcon flexCenter">
-            <img src="/croppedImage/1541188562_611eb16cf93c4b73bc3b54431059c0f7d83d0a6f.jpg" alt="ゲスト写真"  class="userIconInner">
+            <?php if(!isset($app->getValues()->article[0]->iconPath)): ?>
+              <div class="userIconInner">
+              </div>
+            <?php else: ?>
+            <img src="<?php echo h($app->getValues()->article[0]->iconPath); ?>" alt=""  class="userIconInner">
+            <?php endif; ?>
           </div>
           <div class="userData">
             <div class="postUser">
-              <p><span class="fs18"><?php echo h($app->getValues()->article[0]->name); ?></span> さんの投稿。</p>
+              <?php if(isset($app->getValues()->article[0]->iconPath)): ?>
+                <p><span class="fs18"><?php echo h($app->getValues()->article[0]->name); ?></span> さんの投稿。</p>
+              <?php else: ?>
+                <p>退会したユーザーの投稿</p>
+              <?php endif; ?>
             </div>
             <div class="fs14 postdate">
               <p><?php echo h($app->getValues()->article[0]->created); ?></p>
@@ -227,11 +241,20 @@ if (isset($_SESSION['me'])) {
                   <li id="like_<?php echo h($like->id) ; ?>" data-id="<?php echo h($like->id) ; ?>">
                     <div class="user">
                       <div class="userIcon flexCenter">
-                        <img src="/croppedImage/1541188562_611eb16cf93c4b73bc3b54431059c0f7d83d0a6f.jpg" alt="ゲスト写真"  class="userIconInner">
+                        <?php if(!isset($like->iconPath)): ?>
+                          <div class="userIconInner">
+                          </div>
+                        <?php else: ?>
+                        <img src="<?php echo h($like->iconPath); ?>" alt=""  class="userIconInner">
+                        <?php endif; ?>
                       </div>
                       <div class="userData">
                         <div class="postUser">
-                          <p><span class="fs18"><?php echo h($like->name) ; ?></span> さん</p>
+                          <?php if(!isset($like->name)): ?>
+                            <p>退会したユーザー</p>
+                          <?php else: ?>
+                            <p><span class="fs18"><?php echo h($like->name) ; ?></span> さん</p>
+                          <?php endif; ?>
                         </div>
                         <div class="fs14 postdate">
                           <p><?php echo h($like->created) ; ?></p>
@@ -248,7 +271,12 @@ if (isset($_SESSION['me'])) {
                 <li id="likeTemplate" data-id="">
                   <div class="user">
                     <div class="userIcon flexCenter">
-                      <img src="/croppedImage/1541188562_611eb16cf93c4b73bc3b54431059c0f7d83d0a6f.jpg" alt="ゲスト写真"  class="userIconInner">
+                      <?php if(!isset($app->me()->iconPath)): ?>
+                        <div class="userIconInner">
+                        </div>
+                      <?php else: ?>
+                      <img src="<?php echo h($app->me()->iconPath); ?>" alt=""  class="userIconInner">
+                      <?php endif; ?>
                     </div>
                     <div class="userData">
                       <div class="postUser">
@@ -270,11 +298,20 @@ if (isset($_SESSION['me'])) {
                   <li id="comment_<?php echo h($comment->id) ; ?>" data-id="<?php echo h($comment->id) ; ?>">
                     <div class="user">
                       <div class="userIcon flexCenter">
-                        <img src="/croppedImage/1541188562_611eb16cf93c4b73bc3b54431059c0f7d83d0a6f.jpg" alt="ゲスト写真"  class="userIconInner">
+                        <?php if(!isset($comment->iconPath)): ?>
+                          <div class="userIconInner">
+                          </div>
+                        <?php else: ?>
+                        <img src="<?php echo h($comment->iconPath); ?>" alt=""  class="userIconInner">
+                        <?php endif; ?>
                       </div>
                       <div class="userData">
                         <div class="postUser">
-                          <p><span class="fs18"><?php echo h($comment->name) ; ?></span> さん</p>
+                          <?php if(!isset($comment->name)): ?>
+                            <p>退会したユーザー</p>
+                          <?php else: ?>
+                            <p><span class="fs18"><?php echo h($comment->name) ; ?></span> さん</p>
+                          <?php endif; ?>
                         </div>
                         <div class="fs14 postdate">
                           <p><?php echo h($comment->created) ; ?></p>
@@ -294,7 +331,12 @@ if (isset($_SESSION['me'])) {
                 <li id="commentTemplate" data-id="">
                   <div class="user">
                     <div class="userIcon flexCenter">
-                      <img src="/croppedImage/1541188562_611eb16cf93c4b73bc3b54431059c0f7d83d0a6f.jpg" alt="ゲスト写真"  class="userIconInner">
+                      <?php if(!isset($app->me()->iconPath)): ?>
+                        <div class="userIconInner">
+                        </div>
+                      <?php else: ?>
+                      <img src="<?php echo h($app->me()->iconPath); ?>" alt=""  class="userIconInner">
+                      <?php endif; ?>
                     </div>
                     <div class="userData">
                       <div class="postUser">

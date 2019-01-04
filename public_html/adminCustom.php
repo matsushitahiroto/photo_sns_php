@@ -52,6 +52,9 @@ $app->run();
   <?php if ($_GET['type'] === 'user'): ?>
 
     <form action="" method="post">
+      <p>
+        <img src="<?php echo h($app->getValues()->user->iconPath); ?>" alt="">
+      </p>
       <p>ユーザー名</br><input type="text" name="name" value="<?php echo h($app->getValues()->user->name); ?>"></p>
       <p>管理者フラグ</br>
         <select name="admin">

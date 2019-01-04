@@ -15,9 +15,10 @@ class Comment extends \MyApp\Model {
       comments.user_id,
       comments.comment,
       comments.created,
+      users.iconPath as iconPath,
       users.name as name
     from comments
-    join users on comments.user_id = users.id
+    left join users on comments.user_id = users.id
     where comments.article_id = :article_id;
     ");
     $stmt->execute([

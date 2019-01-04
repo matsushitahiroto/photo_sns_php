@@ -41,6 +41,7 @@ $app->getValues()->users;
          <th></th>
          <th>id</th>
          <th>admin</th>
+         <th>iconPath</th>
          <th>name</th>
          <th>description</th>
          <th>email</th>
@@ -58,6 +59,7 @@ $app->getValues()->users;
            </td>
            <td><?php echo h($user->id); ?></td>
            <td><?php echo h($user->admin); ?></td>
+           <td><?php echo h($user->iconPath); ?></td>
            <td><?php echo h($user->name); ?></td>
            <td><?php echo h($user->description); ?></td>
            <td><?php echo h($user->email); ?></td>

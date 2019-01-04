@@ -7,6 +7,7 @@ use photo_sns_php
 create table users (
   id int not null auto_increment primary key,
   admin tinyint not null default 0,
+  iconPath varchar(255) unique,
   name varchar(255) unique,
   description varchar(255),
   email varchar(255) unique,

@@ -123,6 +123,7 @@ class Article extends \MyApp\Model {
       articles.lng,
       articles.created,
       articles.modified,
+      users.iconPath as iconPath,
       users.name as name,
       ifnull(like_count.like_count, 0) as lc,
       ifnull(comment_count.comment_count, 0) as cc

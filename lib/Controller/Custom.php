@@ -3,6 +3,10 @@
 namespace MyApp\Controller;
 
 class Custom extends \MyApp\Controller {
+
+  private $iconPath;
+  private $newIconPath;
+
   public function run() {
     if(!$this->isLoggedIn()) {
       //login
@@ -16,6 +20,21 @@ class Custom extends \MyApp\Controller {
   }
 
   protected function postProcess() {
+    $_POST['iconPath'] = ($_POST['iconPath'] === '') ? '' : $_POST['iconPath'];
+    $iconPath = $_POST['iconPath'];
+    
+    //新たな保存先を指定
+    $newIconPath = str_replace('./tmpImage', './croppedImage', $iconPath);
+
+    //ファイルの移動
+    rename("$iconPath", "$newIconPath");
+
+    $dir = glob('./tmpImage/*');
+
+    foreach ($dir as $file){
+      //ファイルを削除する
+      unlink($file);
+    }
     $_POST['description'] = ($_POST['description'] === '') ? '' : $_POST['description'];
     //validate
     try {
@@ -46,6 +65,7 @@ class Custom extends \MyApp\Controller {
       try {
         $userModel = new \MyApp\Model\User();
         $userModel->custom([
+          'iconPath' => $newIconPath,
           'name' => $_POST['name'],
           'description' => $_POST['description'],
           'email' => $_POST['email'],
