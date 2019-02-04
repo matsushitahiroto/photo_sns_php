@@ -53,6 +53,9 @@ function initMap() {
       }
       if (results[0]) {
         map.setCenter(results[0].geometry.location);
+        document.getElementById('add').innerHTML = results[0].formatted_address;
+        document.getElementById('la').innerHTML = e.latLng.lat();
+        document.getElementById('ln').innerHTML = e.latLng.lng();
         document.getElementById('address').value = results[0].formatted_address;
         document.getElementById('lat').value = e.latLng.lat();
         document.getElementById('lng').value = e.latLng.lng();

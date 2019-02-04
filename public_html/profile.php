@@ -47,7 +47,7 @@ $app->getValues()->articles;
                     <div class="userIconInner">
                     </div>
                   <?php else: ?>
-                  <img src="<?php echo h($app->me()->iconPath); ?>" alt="ゲスト写真"  class="userIconInner">
+                  <img src="<?php echo h($app->me()->iconPath); ?>" alt=""  class="userIconInner">
                   <?php endif; ?>
                 </div>
                 <div class="userData">
@@ -83,7 +83,7 @@ $app->getValues()->articles;
               <div class="userIconInner">
               </div>
             <?php else: ?>
-            <img src="<?php echo h($app->me()->iconPath); ?>" alt="ゲスト写真"  class="userIconInner">
+            <img src="<?php echo h($app->me()->iconPath); ?>" alt=""  class="userIconInner">
             <?php endif; ?>
           </div>
           <div class="userData">
@@ -96,7 +96,7 @@ $app->getValues()->articles;
           </div>
         </div>
         <div class="caption">
-          <p class="fs18"><?php echo h($app->me()->description); ?></p>
+          <p class="fs18"><?php echo nl2br(h($app->me()->description)); ?></p>
         </div>
         <div class="shadowBorder"></div>
         <div class="gallery">
@@ -106,7 +106,11 @@ $app->getValues()->articles;
               <div class="thumbBlock">
                 <div class="inner">
                   <a href="photo.php?id=<?php echo h($article->id); ?>">
-                    <img src="postimage/<?php echo h(basename($article->savePath)); ?>" alt="">
+                    <?php if (file_exists(THUMBNAIL_DIR . '/' . basename($article->savePath))): ?>
+                      <img src="thumbs/<?php echo h(basename($article->savePath)); ?>" alt="">
+                    <?php else: ?>
+                      <img src="postimage/<?php echo h(basename($article->savePath)); ?>" alt="">
+                    <?php endif;  ?>
                   </a>
                 </div>
                 <p><i class="far fa-thumbs-up"></i><?php echo h($article->lc); ?>  <i class="far fa-comment-alt"></i><?php echo h($article->cc); ?></p>

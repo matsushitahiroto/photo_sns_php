@@ -1,0 +1,52 @@
+<div class="guest">
+  <h2>ようこそ！</h2>
+  <div class="guestUser">
+    <div class="guestIcon flexCenter">
+      <div class="guestIconInner"></div>
+      <img src="/croppedImage/1541188562_611eb16cf93c4b73bc3b54431059c0f7d83d0a6f.jpg" alt="ゲスト写真"  class="guestIconInner">
+    </div>
+    <div class="guestData fs14">
+      <div class="height50 flexCenter">
+        <p><span class="fs24"><?php echo h($app->me()->name); ?></span> さん</p>
+      </div>
+      <div class="height50 flexCenter">
+        <p><span class="fs24"><?php echo h($app->me()->ac); ?></span></br>投稿</p>
+      </div>
+    </div>
+  </div>
+  <div class="selecterInner">
+    <div class="flexCenter btnBox">
+      <div class="btn flexCenter">
+        <a href="profile.php">
+          アカウント
+        </a>
+      </div>
+    </div>
+    <div class="flexCenter btnBox">
+      <div class="btn flexCenter">
+        <a href="post.php">
+          新規投稿
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="selecterInner">
+    <div class="flexCenter btnBox">
+      <div class="btn flexCenter">
+        <a href="custom.php">
+          編集
+        </a>
+      </div>
+    </div>
+    <div class="flexCenter btnBox">
+      <div class="btn submitBtn">
+        <form action="logout.php" method="post" id="logout">
+          <input type="hidden" name="token" value="<?php echo h($_SESSION['token']); ?>">
+          <div onclick="document.getElementById('logout').submit();">
+            ログアウト
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

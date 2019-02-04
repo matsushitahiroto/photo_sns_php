@@ -54,7 +54,7 @@ $app->getValues()->article;
                       <div class="userIconInner">
                       </div>
                     <?php else: ?>
-                    <img src="<?php echo h($app->me()->iconPath); ?>" alt="ゲスト写真"  class="userIconInner">
+                    <img src="<?php echo h($app->me()->iconPath); ?>" alt=""  class="userIconInner">
                     <?php endif; ?>
                   </div>
                   <div class="userData">

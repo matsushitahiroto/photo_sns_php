@@ -1,0 +1,207 @@
+@charset "UTF-8";
+
+/* font */
+/* @font-face {
+    font-family: 'KTEGAKI';
+    src: url('../font/KTEGAKI.eot');
+    src: url('../font/KTEGAKI.eot?iefix') format('eot'),
+         url('../font/KTEGAKI.woff') format('woff'),
+         url('../font/KTEGAKI.ttf') format('truetype'),
+         url('../font/KTEGAKI.svg#webfontjSpbZQRv') format('svg');
+} */
+
+* {
+  font-family: 'TsukuARdGothic-Regular', '筑紫A丸ゴシック', 'arial unicode ms', 'ヒラギノ丸ゴ ProN','Hiragino Maru Gothic ProN','Yu Gothic UI','Arial','ヒラギノ角ゴシック','Hiragino Sans', sans-serif;
+}
+
+h1 {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+p {
+  word-wrap: break-word;
+}
+
+.fs36 {
+  font-size: 36px;
+  line-height: 80px;
+}
+
+.fs32 {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.fs30 {
+  font-size: 30px;
+  line-height: 60px;
+}
+
+.fs24 {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.fs20 {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.fs18 {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.fs14 {
+  font-size: 14px;
+}
+
+/* common */
+
+img {
+  max-width: 100%;
+}
+
+.container {
+  padding-top: 60px;
+}
+
+.wrapper {
+  text-align: center;
+  width: 100%;
+  font-size: 16px;
+}
+
+.hidden {
+  display: none;
+}
+
+.shadowBorder {
+  margin: 20px 0;
+  width: 100%;
+  height: 10px;
+  box-shadow: 0 1px 1px #ddd inset,
+              0 -1px 1px #ddd inset;
+  background-color: #eee;
+}
+
+.flexCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* float */
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.clear {
+  clear: both;
+}
+
+
+/* color */
+
+a {
+  color: #000;
+}
+
+.green {
+  background-color: #6d6;
+}
+
+.orange {
+  background-color: #f80;
+}
+
+.greenIcon {
+  color: #6d6;
+}
+
+.orangeIcon {
+  color: #f80;
+}
+
+.red {
+  color: red;
+}
+
+/* botton */
+/* selecter */
+
+.selecter {
+  width: 100%;
+}
+
+.selecterInner {
+  width: 100%;
+  margin-top: 15px;
+  display: flex;
+}
+
+.border {
+  width: 100%;
+  height: 6px;
+}
+
+.selecterBtn {
+  font-size: 25px;
+  color: #fff;
+  width: 90%;
+  height: 45px;
+  border-radius: 5px;
+}
+
+.btn {
+  font-size: 20px;
+  text-align: center;
+  display: inline-block;
+  margin: 10px;
+  width: 120px;
+  height: 40px;
+  background-color: #fff;
+  border-radius: 10%;
+  box-shadow: 2px 2px 5px #666;
+}
+
+.btn:hover {
+  cursor: pointer;
+}
+
+a .btn{
+  line-height: 40px;
+  color: #88d;
+}
+
+.submitBtn {
+  color: #88d;
+  line-height: 40px;
+}
+
+.btnBox {
+  width: 100%;
+  height: 50px;
+  flex-grow: 1;
+}
+
+.height50px {
+  height: 50px;
+  border-radius: 5px 5px 0 0;
+}

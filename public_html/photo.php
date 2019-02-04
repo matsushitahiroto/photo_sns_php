@@ -14,7 +14,7 @@ if (isset($_SESSION['me'])) {
 
 // var_dump($app->getValues()->article[0]->address);
 // var_dump($app->getValues()->article[0]->lc);
-// var_dump($app->getValues()->comments);
+// h(var_dump($app->getValues()->comments));
 // var_dump($app->getValues()->likes);
 // var_dump($_SESSION['me']->id);
 // var_dump($app->getValues()->check[0]->bool);
@@ -59,7 +59,7 @@ if (isset($_SESSION['me'])) {
                       <div class="userIconInner">
                       </div>
                     <?php else: ?>
-                    <img src="<?php echo h($app->me()->iconPath); ?>" alt="ゲスト写真"  class="userIconInner">
+                    <img src="<?php echo h($app->me()->iconPath); ?>" alt=""  class="userIconInner">
                     <?php endif; ?>
                   </div>
                   <div class="userData">
@@ -99,16 +99,16 @@ if (isset($_SESSION['me'])) {
       <div class="container">
         <div class="user">
           <div class="userIcon flexCenter">
-            <?php if(!isset($app->getValues()->article[0]->iconPath)): ?>
+            <?php if(isset($app->getValues()->article[0]->iconPath)): ?>
+              <img src="<?php echo h($app->getValues()->article[0]->iconPath); ?>" alt=""  class="userIconInner">
+            <?php else: ?>
               <div class="userIconInner">
               </div>
-            <?php else: ?>
-            <img src="<?php echo h($app->getValues()->article[0]->iconPath); ?>" alt=""  class="userIconInner">
             <?php endif; ?>
           </div>
           <div class="userData">
             <div class="postUser">
-              <?php if(isset($app->getValues()->article[0]->iconPath)): ?>
+              <?php if(isset($app->getValues()->article[0]->name)): ?>
                 <p><span class="fs18"><?php echo h($app->getValues()->article[0]->name); ?></span> さんの投稿。</p>
               <?php else: ?>
                 <p>退会したユーザーの投稿</p>
@@ -157,16 +157,18 @@ if (isset($_SESSION['me'])) {
           <div class="shadowBorder"></div>
           <?php if (isset($app->getValues()->article[0]->address) and !empty($app->getValues()->article[0]->address)): ?>
             <div class="mapLink">
-              <a href="map.php?id=<?php echo h($app->getValues()->article[0]->id) ?>">
+              <a href="map.php?id=<?php echo h($app->getValues()->article[0]->id); ?>">
                 <div class="mapLinkIcon">
                   <p><i class="fas fa-map-marker-alt fa-3x"></i></br>map</p>
                 </div>
               </a>
-              <p><?php echo h(preg_replace('/^.+〒[0-9]{3}-[0-9]{4} /u','',$app->getValues()->article[0]->address)) ?>　付近</p>
+              <p><?php echo h($app->getValues()->article[0]->address); ?>　付近</p>
             </div>
           <?php endif; ?>
           <div class="gallery">
-            <img id="bigImage" src="postimage/<?php echo h(basename($app->getValues()->article[0]->savePath)); ?>" alt="">
+            <a id="imageLink" href="postimage/<?php echo h(basename($app->getValues()->article[0]->savePath)); ?>">
+              <img id="bigImage" src="postimage/<?php echo h(basename($app->getValues()->article[0]->savePath)); ?>" alt="">
+            </a>
             <div class="thumbWap">
               <div class="photoThumbBlock">
                 <div class="inner">
@@ -191,7 +193,7 @@ if (isset($_SESSION['me'])) {
           </div>
           <div class="postGalleryComment clear">
             <div class="caption">
-              <p><?php echo h($app->getValues()->article[0]->description); ?></p>
+              <p><?php echo nl2br(h($app->getValues()->article[0]->description)); ?></p>
             </div>
             <?php if($app->me()) : ?>
               <p>
@@ -324,7 +326,7 @@ if (isset($_SESSION['me'])) {
                       <?php endif; ?>
                     </div>
                     <div class="caption">
-                      <p><?php echo h($comment->comment) ; ?></p>
+                      <p><?php echo nl2br(h($comment->comment)) ; ?></p>
                     </div>
                   </li>
                 <?php endforeach; ?>

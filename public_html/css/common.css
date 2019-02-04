@@ -21,6 +21,10 @@ h3 {
   font-weight: 600;
 }
 
+p {
+  word-wrap: break-word;
+}
+
 .fs36 {
   font-size: 36px;
   line-height: 80px;
@@ -127,7 +131,7 @@ a {
   color: #f80;
 }
 
-.err {
+.red {
   color: red;
 }
 

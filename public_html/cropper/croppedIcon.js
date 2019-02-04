@@ -50,7 +50,6 @@ function() {
                 // see https://en.wikipedia.org/wiki/List_of_file_signatures
                 // ファイルのヘッダを参照し、マイムタイプを疑似的に取得します。フレームワークによってはもっと簡単に正確に読めるものもあります。
                 // 下記は厳しい設定です。正規の手順を踏んでもアップロードできないカメラなどがあります。
-                // （私の環境ではアクションカメラの写真などは下記に引っ掛かりました。）
                 if((int32View.length>4 && int32View[0]==0xFF && int32View[1]==0xD8 && int32View[2]==0xFF && int32View[3]==0xE0)
                 || (int32View.length>4 && int32View[0]==0xFF && int32View[1]==0xD8 && int32View[2]==0xFF && int32View[3]==0xDB)
                 || (int32View.length>4 && int32View[0]==0xFF && int32View[1]==0xD8 && int32View[2]==0xFF && int32View[3]==0xD1)
@@ -102,7 +101,7 @@ function() {
                         croppedCanvas.toBlob(function(blob){
                             var trimedImageForm = new FormData();
                             trimedImageForm.append('blob', blob);
-                            // この例ではAjaxにて送信します。
+                            // Ajaxにて送信します。
                             $.ajax({
                                 url: 'uploadTrimedImage.php', // POST送信先
                                 type: 'post',
@@ -131,7 +130,7 @@ function() {
                         blob = croppedCanvas.msToBlob();
                         var trimedImageForm = new FormData();
                         trimedImageForm.append('blob', blob);
-                        // この例ではAjaxにて送信します。
+                        // Ajaxにて送信します。
                         $.ajax({
                             url: 'uploadTrimedImage.php', // POST送信先
                             type: 'post',
@@ -154,12 +153,10 @@ function() {
                             var responese = $.parseJSON(jsonResponse);
                         });
                     }else{
-                        // これは少しわからないです。申し訳ない。
                         imageURL = canvas.toDataURL();
                     }
 
-                    // 画面にトリミング結果を出力する場合は下記が必要です。
-                    // 例ではAjaxにて送信済みでので、下記機能に特に意味がありません。（結果表示したところですでに送信済みですので。）
+                    // 画面にトリミング結果を出力する
                     var result = document.getElementById('result');
                     var roundedImage;
                     roundedCanvas = getRoundedCanvas(croppedCanvas);

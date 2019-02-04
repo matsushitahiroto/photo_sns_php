@@ -7,7 +7,8 @@ $app = new MyApp\Controller\Index();
 $app->run();
 $app->getValues()->articles;
 $app->getValues()->likeArticles;
-
+// var_dump($app->me());
+// exit;
 
  ?>
 <!DOCTYPE html>
@@ -44,7 +45,7 @@ $app->getValues()->likeArticles;
                     <div class="userIconInner">
                     </div>
                   <?php else: ?>
-                  <img src="<?php echo h($app->me()->iconPath); ?>" alt="ゲスト写真"  class="userIconInner">
+                  <img src="<?php echo h($app->me()->iconPath); ?>" alt="" class="userIconInner">
                   <?php endif; ?>
                 </div>
                 <div class="userData">
@@ -103,7 +104,11 @@ $app->getValues()->likeArticles;
                 <div class="thumbBlock">
                   <div class="inner">
                     <a href="photo.php?id=<?php echo h($article->id); ?>">
-                      <img src="postimage/<?php echo h(basename($article->savePath)); ?>" alt="">
+                      <?php if (file_exists(THUMBNAIL_DIR . '/' . basename($article->savePath))): ?>
+                        <img src="thumbs/<?php echo h(basename($article->savePath)); ?>" alt="">
+                      <?php else: ?>
+                        <img src="postimage/<?php echo h(basename($article->savePath)); ?>" alt="">
+                      <?php endif;  ?>
                     </a>
                   </div>
                   <p><i class="far fa-thumbs-up"></i><?php echo h($article->lc); ?>  <i class="far fa-comment-alt"></i><?php echo h($article->cc); ?></p>
@@ -117,7 +122,11 @@ $app->getValues()->likeArticles;
                 <div class="thumbBlock">
                   <div class="inner">
                     <a href="photo.php?id=<?php echo h($likeArticle->id); ?>">
-                      <img src="postimage/<?php echo h(basename($likeArticle->savePath)); ?>" alt="">
+                      <?php if (file_exists(THUMBNAIL_DIR . '/' . basename($likeArticle->savePath))): ?>
+                        <img src="thumbs/<?php echo h(basename($likeArticle->savePath)); ?>" alt="">
+                      <?php else: ?>
+                        <img src="postimage/<?php echo h(basename($likeArticle->savePath)); ?>" alt="">
+                      <?php endif;  ?>
                     </a>
                   </div>
                   <p><i class="far fa-thumbs-up"></i><?php echo h($likeArticle->lc); ?>  <i class="far fa-comment-alt"></i><?php echo h($likeArticle->cc); ?></p>
@@ -138,7 +147,7 @@ $app->getValues()->likeArticles;
                 <div class="guestIconInner">
                 </div>
               <?php else: ?>
-              <img src="<?php echo h($app->me()->iconPath); ?>" alt="ゲスト写真"  class="guestIconInner">
+                <img src="<?php echo h($app->me()->iconPath); ?>" alt="" class="guestIconInner">
               <?php endif; ?>
             </div>
             <div class="guestData fs14">

@@ -45,7 +45,7 @@ $app->run();
                     <div class="userIconInner">
                     </div>
                   <?php else: ?>
-                  <img src="<?php echo h($app->me()->iconPath); ?>" alt="ゲスト写真"  class="userIconInner">
+                  <img src="<?php echo h($app->me()->iconPath); ?>" alt=""  class="userIconInner">
                   <?php endif; ?>
                 </div>
                 <div class="userData">
@@ -77,6 +77,13 @@ $app->run();
       <div class="container">
         <div id="form" class="form">
           <h2>プロフィール変更</h2>
+          <p class="red">
+            <?php echo h($app->getErrors('empty')); ?>
+            <?php echo h($app->getErrors('name')); ?>
+            <?php echo h($app->getErrors('email')); ?>
+            <?php echo h($app->getErrors('demail')); ?>
+            <?php echo h($app->getErrors('custom')); ?>
+          </p>
           <form action="" method="post" id="custom">
             <div class="cropper-container">
               <p><span class="fs20">アイコン</span></br>
@@ -85,35 +92,27 @@ $app->run();
               <p><input type="button" id="crop_btn" value="画像をトリミングして送信" /></p>
             </div>
             <div id="result">
-              <img src="<?php echo h($app->me()->iconPath); ?>" alt="画像が読めません"  id="trimed">
+              <img src="<?php echo h($app->me()->iconPath); ?>" alt=""  id="trimed">
             </div>
+            <p>*印は必ず入力してください。</p>
             <p class="name">
+              <span class="red fs20">*</span>
               <span class="fs20">名前</span></br>
-              <input type="name" name="name" value="<?php echo h($app->me()->name); ?>">
+              ２０文字以内で記号は使えません。<br />
+              <input type="name" name="name" maxlength="20" pattern="^[ぁ-んァ-ヶーa-zA-Z0-9０-９]+$" value="<?php echo h($app->me()->name); ?>" required>
             </p>
             <p class="description">
               <span class="fs20">自己紹介</span></br>
-              <textarea class="fs24" name="description" rows="6" placeholder="こんにちは。"><?php echo h($app->me()->description); ?></textarea>
+              <textarea class="fs24" name="description" rows="6" placeholder="自己紹介"><?php echo h($app->me()->description); ?></textarea>
             </p>
             <p class="email">
+              <span class="red fs20">*</span>
               <span class="fs20">メールアドレス</span></br>
-              <input type="email" name="email" value="<?php echo h($app->me()->email); ?>">
-            </p>
-            <p class="password">
-              <span class="fs20">パスワードを入力</span></br>
-              <input type="password" name="password" placeholder="パスワード">
+              <input type="email" name="email" value="<?php echo h($app->me()->email); ?>" required>
             </p>
             <input type="hidden" name="iconPath" id="savePath" value="<?php echo h($app->me()->iconPath); ?>">
             <input type="hidden" name="token" value="<?php echo h($_SESSION['token']); ?>">
             <input type="hidden" name="id" value="<?php echo h($app->me()->id); ?>">
-            <p class="err">
-              <?php echo h($app->getErrors('name')); ?>
-              <?php echo h($app->getErrors('description')); ?>
-              <?php echo h($app->getErrors('email')); ?>
-              <?php echo h($app->getErrors('demail')); ?>
-              <?php echo h($app->getErrors('custom')); ?>
-              <?php echo h($app->getErrors('password')); ?>
-            </p>
             <div class="btn submitBtn" onclick="document.getElementById('custom').submit();">
               保存
             </div>

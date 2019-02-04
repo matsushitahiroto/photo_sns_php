@@ -89,26 +89,32 @@ $app->run();
             <p>探そう。探そう。探そう。探そう。探そう。探そう。探そう。探そう。探そう。探そう。探そう。探そう。探そう。探そう。探そう。探そう。探そう。探そう。探そう。</p>
           </div>
         </div>
-        <p class="err">
-          <?php echo h($app->getErrors('name')); ?>
-          <?php echo h($app->getErrors('description')); ?>
-          <?php echo h($app->getErrors('password')); ?>
-          <?php echo h($app->getErrors('email')); ?>
-        </p>
         <div id="form" class="form">
           <h2>新規登録</h2>
+          <p class="red">
+            <?php echo h($app->getErrors('empty')); ?>
+            <?php echo h($app->getErrors('name')); ?>
+            <?php echo h($app->getErrors('password')); ?>
+            <?php echo h($app->getErrors('email')); ?>
+          </p>
+          <p>*印は必ず入力してください。</p>
           <form action="" method="post" id="signup">
             <p class="name">
-              <input type="name" name="name" placeholder="ユーザー名">
+              ２０文字以内で記号は使えません。<br />
+              <span class="red fs20">*</span>
+              <input type="name" name="name" placeholder="ユーザー名" maxlength="20" pattern="^[ぁ-んァ-ヶーa-zA-Z0-9０-９]+$" value="<?php echo isset($app->getValues()->name) ? h($app->getValues()->name) : ''; ?>" required>
             </p>
             <p class="description">
-              <textarea class="fs24" name="description" rows="6" placeholder="自己紹介"></textarea>
+              <textarea class="fs24" name="description" rows="6" placeholder="自己紹介"><?php echo isset($app->getValues()->description) ? h($app->getValues()->description) : ''; ?></textarea>
             </p>
             <p class="email">
-              <input type="email" name="email" placeholder="メールアドレス">
+              <span class="red fs20">*</span>
+              <input type="email" name="email" placeholder="メールアドレス" value="<?php echo isset($app->getValues()->email) ? h($app->getValues()->email) : ''; ?>" required>
             </p>
             <p class="password">
-              <input type="password" name="password" placeholder="パスワード">
+              半角英数字を含む８文字以上２０文字以下。<br />
+              <span class="red fs20">*</span>
+              <input type="password" name="password" placeholder="パスワード" maxlength="20" pattern="^(?=.*?[a-zA-Z])(?=.*?\d)[a-zA-Z\d]{8,20}$" required>
             </p>
             <input type="hidden" name="token" value="<?php echo h($_SESSION['token']); ?>">
             <div class="btn submitBtn" onclick="document.getElementById('signup').submit();">

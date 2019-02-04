@@ -44,7 +44,7 @@ $app->run();
                     <div class="userIconInner">
                     </div>
                   <?php else: ?>
-                  <img src="<?php echo h($app->me()->iconPath); ?>" alt="ゲスト写真"  class="userIconInner">
+                  <img src="<?php echo h($app->me()->iconPath); ?>" alt=""  class="userIconInner">
                   <?php endif; ?>
                 </div>
                 <div class="userData">
@@ -94,18 +94,20 @@ $app->run();
           <!-- <p><input type="text" id="keyword" placeholder="検索"></p>
           <p><button class="btn" id="search">Serch</button></p> -->
           <div id="target"></div>
-          <p>住所：<input type="text" name="address" id="address" value=""></p>
-          <p>緯度：<input type="text" name="lat" id="lat" value=""></p>
-          <p>経度：<input type="text" name="lng" id="lng" value=""></p>
+          <p>住所：<span id="add"></span></p>
+          <p>緯度：<span id="la"></span></p>
+          <p>経度：<span id="ln"></span></p>
           <p>
             <textarea class="fs24" name="description" rows="6" value="" placeholder="コメント"></textarea>
           </p>
           <input type="hidden" name="token" value="<?php echo h($_SESSION['token']); ?>">
+          <input type="hidden" name="address" id="address" value="">
+          <input type="hidden" name="lat" id="lat" value="">
+          <input type="hidden" name="lng" id="lng" value="">
           <input type="hidden" name="id" value="<?php echo h($app->me()->id); ?>">
 
-          <div class="err">
+          <div class="red">
             <?php echo h($app->getErrors('title')); ?>
-            <?php echo h($app->getErrors('description')); ?>
             <?php echo h($app->getErrors('size')); ?>
             <?php echo h($app->getErrors('type')); ?>
             <?php echo h($app->getErrors('image')); ?>

@@ -68,8 +68,6 @@ class Post extends \MyApp\Controller {
 
     } catch (\MyApp\Exception\InvalidTitle $e) {
       $this->setErrors('title', $e->getMessage());
-    } catch (\MyApp\Exception\InvalidDescription $e) {
-      $this->setErrors('description', $e->getMessage());
     } catch (\MyApp\Exception\ImageSizeError $e) {
       $this->setErrors('size', $e->getMessage());
     } catch (\MyApp\Exception\ImageTypeError $e) {
@@ -87,6 +85,7 @@ class Post extends \MyApp\Controller {
     if($this->hasError()) {
       return;
     } else {
+      $address = preg_replace('/^.+〒[0-9]{3}-[0-9]{4} /u','',$_POST['address']);
       try {
         $articleModel = new \MyApp\Model\Article();
         $articleModel->post([
@@ -95,7 +94,7 @@ class Post extends \MyApp\Controller {
           'savePath' => $path[0],
           'savePathSub1' => $path[1],
           'savePathSub2' => $path[2],
-          'address' => $_POST['address'],
+          'address' => $address,
           'lat' => $_POST['lat'],
           'lng' => $_POST['lng'],
           'id' => $_POST['id']
@@ -129,11 +128,6 @@ class Post extends \MyApp\Controller {
     if($_POST['title'] !== '') {
       if(!preg_match('/^[ぁ-んァ-ヶ一-龠０-９、。,\.ー＿\-\w\s]+$/u', $_POST['title'])) {
         throw new \MyApp\Exception\InvalidTitle();
-      }
-    }
-    if($_POST['description'] !== '') {
-      if(!preg_match('/^[ぁ-んァ-ヶ一-龠０-９、。,\.ー＿\-\w\s]+$/u', $_POST['description'])) {
-        throw new \MyApp\Exception\InvalidDescription();
       }
     }
     if($_POST['address'] !== '') {

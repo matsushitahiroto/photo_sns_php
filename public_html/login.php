@@ -85,7 +85,11 @@ $app->getValues()->likeArticles;
                 <div class="thumbBlock">
                   <div class="inner">
                     <a href="photo.php?id=<?php echo h($article->id); ?>">
-                      <img src="postimage/<?php echo h(basename($article->savePath)); ?>" alt="">
+                      <?php if (file_exists(THUMBNAIL_DIR . '/' . basename($article->savePath))): ?>
+                        <img src="thumbs/<?php echo h(basename($article->savePath)); ?>" alt="">
+                      <?php else: ?>
+                        <img src="postimage/<?php echo h(basename($article->savePath)); ?>" alt="">
+                      <?php endif;  ?>
                     </a>
                   </div>
                   <p><i class="far fa-thumbs-up"></i><?php echo h($article->lc); ?>  <i class="far fa-comment-alt"></i><?php echo h($article->cc); ?></p>
@@ -99,7 +103,11 @@ $app->getValues()->likeArticles;
                 <div class="thumbBlock">
                   <div class="inner">
                     <a href="photo.php?id=<?php echo h($likeArticle->id); ?>">
-                      <img src="postimage/<?php echo h(basename($likeArticle->savePath)); ?>" alt="">
+                      <?php if (file_exists(THUMBNAIL_DIR . '/' . basename($likeArticle->savePath))): ?>
+                        <img src="thumbs/<?php echo h(basename($likeArticle->savePath)); ?>" alt="">
+                      <?php else: ?>
+                        <img src="postimage/<?php echo h(basename($likeArticle->savePath)); ?>" alt="">
+                      <?php endif;  ?>
                     </a>
                   </div>
                   <p><i class="far fa-thumbs-up"></i><?php echo h($likeArticle->lc); ?>  <i class="far fa-comment-alt"></i><?php echo h($likeArticle->cc); ?></p>
@@ -109,23 +117,23 @@ $app->getValues()->likeArticles;
           </div>
         </div>
         <div id="form" class="form">
+          <p class="red">
+            <?php echo h($app->getErrors('login')); ?>
+            <?php echo h($app->getErrors('load')); ?>
+          </p>
           <div class="formWap">
             <div class="loginForm">
               <form action="" method="post" id="login">
                 <p class="name">
-                  <input type="name" name="name" placeholder="ユーザー名">
+                  <input type="name" name="name" placeholder="ユーザー名" <?php echo isset($app->getValues()->name) ? h($app->getValues()->name) : ''; ?>>
                 </p>
                 <p class="email">
-                  <input type="email" name="email" placeholder="メールアドレス">
+                  <input type="email" name="email" placeholder="メールアドレス" <?php echo isset($app->getValues()->email) ? h($app->getValues()->email) : ''; ?>>
                 </p>
                 <p class="password">
                   <input type="password" name="password" placeholder="パスワード">
                 </p>
                 <input type="hidden" name="token" value="<?php echo h($_SESSION['token']); ?>">
-                <p class="err">
-                  <?php echo h($app->getErrors('login')); ?>
-                  <?php echo h($app->getErrors('load')); ?>
-                </p>
               </form>
             </div>
             <div class="loginFormBtn">

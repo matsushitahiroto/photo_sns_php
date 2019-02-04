@@ -20,48 +20,39 @@ class Custom extends \MyApp\Controller {
   }
 
   protected function postProcess() {
-    $_POST['iconPath'] = ($_POST['iconPath'] === '') ? '' : $_POST['iconPath'];
+    $_POST['iconPath'] = ($_POST['iconPath'] === '') ? NULL : $_POST['iconPath'];
     $iconPath = $_POST['iconPath'];
-    
+
     //新たな保存先を指定
-    $newIconPath = str_replace('./tmpImage', './croppedImage', $iconPath);
+    if ($iconPath !== NULL) {
+      // code...
+      $newIconPath = str_replace('./tmpImage', './croppedImage', $iconPath);
 
-    //ファイルの移動
-    rename("$iconPath", "$newIconPath");
+      //ファイルの移動
+      rename("$iconPath", "$newIconPath");
 
-    $dir = glob('./tmpImage/*');
-
-    foreach ($dir as $file){
-      //ファイルを削除する
-      unlink($file);
+      // $dir = glob('./tmpImage/*');
+      //
+      // foreach ($dir as $file){
+      //   //ファイルを削除する
+      //   unlink($file);
+      // }
     }
     $_POST['description'] = ($_POST['description'] === '') ? '' : $_POST['description'];
     //validate
     try {
       $this->_validate();
+    } catch (\MyApp\Exception\EmptyUserameOrEmail $e) {
+      $this->setErrors('empty', $e->getMessage());
     } catch (\MyApp\Exception\InvalidUsername $e) {
       $this->setErrors('name', $e->getMessage());
-    } catch (\MyApp\Exception\InvalidDescription $e) {
-      $this->setErrors('description', $e->getMessage());
     } catch (\MyApp\Exception\InvalidEmail $e) {
       $this->setErrors('email', $e->getMessage());
-    } catch (\MyApp\Exception\InvalidPassword $e) {
-      $this->setErrors('password', $e->getMessage());
     }
 
     if($this->hasError()) {
       return;
     } else {
-      try {
-        $userModel = new \MyApp\Model\User();
-        $userModel->checkPassword([
-          'password' => $_POST['password'],
-          'id' => $_POST['id']
-        ]);
-      } catch (\MyApp\Exception\UnmatchPassword $e) {
-        $this->setErrors('custom', $e->getMessage());
-        return;
-      }
       try {
         $userModel = new \MyApp\Model\User();
         $userModel->custom([
@@ -80,7 +71,7 @@ class Custom extends \MyApp\Controller {
         $user = $userModel->reload([
           'id' => $_POST['id']
         ]);
-      } catch (\MyApp\Exception\UnmatchPassword $e) {
+      } catch (\MyApp\Exception\DownloadError $e) {
         $this->setErrors('custom', $e->getMessage());
         return;
       }
@@ -96,19 +87,18 @@ class Custom extends \MyApp\Controller {
       echo "不正な処理が行われました！";
       exit;
     }
-    if(!preg_match('/^[ぁ-んァ-ヶーa-zA-Z0-9０-９\n\r]+$/u', $_POST['name'])) {
-      throw new \MyApp\Exception\InvalidUsername();
+    if(!isset($_POST['name']) || !isset($_POST['email'])) {
+      echo "入力がされていません！";
+      exit;
     }
-    if($_POST['description'] !== '') {
-      if(!preg_match('/^[ぁ-んァ-ヶーa-zA-Z0-9一-龠０-９、。\n\r]+$/u', $_POST['description'])) {
-        throw new \MyApp\Exception\InvalidDescription();
-      }
+    if($_POST['name'] === '' || $_POST['email'] === '') {
+      throw new \MyApp\Exception\EmptyUserameOrEmail();
+    }
+    if(!preg_match('/^[ぁ-んァ-ヶ一-龠a-zA-Z0-9０-９\n\r]+$/u', $_POST['name'])) {
+      throw new \MyApp\Exception\InvalidUsername();
     }
     if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
       throw new \MyApp\Exception\InvalidEmail();
-    }
-    if(!preg_match('/\A[a-zA-Z0-9]+\z/', $_POST['password'])) {
-      throw new \MyApp\Exception\InvalidPassword();
     }
   }
 }

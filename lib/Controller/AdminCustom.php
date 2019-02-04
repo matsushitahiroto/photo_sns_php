@@ -34,6 +34,8 @@ class AdminCustom extends \MyApp\Controller {
     }
   }
 
+  // ユーザー管理
+
   private function _customUser() {
     $userModel = new \MyApp\Model\User();
     $user = $userModel->adminGetUser([
@@ -47,11 +49,11 @@ class AdminCustom extends \MyApp\Controller {
     $_POST['description'] = ($_POST['description'] === '') ? '' : $_POST['description'];
     //validate
     try {
-      $this->_validateUser();
+      $this->_validate();
+    } catch (\MyApp\Exception\EmptyUserameOrEmail $e) {
+      $this->setErrors('empty', $e->getMessage());
     } catch (\MyApp\Exception\InvalidUsername $e) {
       $this->setErrors('name', $e->getMessage());
-    } catch (\MyApp\Exception\InvalidDescription $e) {
-      $this->setErrors('description', $e->getMessage());
     } catch (\MyApp\Exception\InvalidEmail $e) {
       $this->setErrors('email', $e->getMessage());
     }
@@ -83,18 +85,22 @@ class AdminCustom extends \MyApp\Controller {
       echo "不正な処理が行われました！";
       exit;
     }
-    if(!preg_match('/^[ぁ-んァ-ヶーa-zA-Z0-9０-９\n\r]+$/u', $_POST['name'])) {
-      throw new \MyApp\Exception\InvalidUsername();
+    if(!isset($_POST['name']) || !isset($_POST['email'])) {
+      echo "入力がされていません！";
+      exit;
     }
-    if($_POST['description'] !== '') {
-      if(!preg_match('/^[ぁ-んァ-ヶーa-zA-Z0-9一-龠０-９、。\n\r]+$/u', $_POST['description'])) {
-        throw new \MyApp\Exception\InvalidDescription();
-      }
+    if($_POST['name'] === '' || $_POST['email'] === '') {
+      throw new \MyApp\Exception\EmptyUserameOrEmail();
+    }
+    if(!preg_match('/^[ぁ-んァ-ヶ一-龠a-zA-Z0-9０-９\n\r]+$/u', $_POST['name'])) {
+      throw new \MyApp\Exception\InvalidUsername();
     }
     if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
       throw new \MyApp\Exception\InvalidEmail();
     }
   }
+
+  // 記事管理
 
   private function _customArticle() {
     $articleModel = new \MyApp\Model\Article();
@@ -113,8 +119,6 @@ class AdminCustom extends \MyApp\Controller {
       $this->_validateArticle();
     } catch (\MyApp\Exception\InvalidTitle $e) {
       $this->setErrors('title', $e->getMessage());
-    } catch (\MyApp\Exception\InvalidDescription $e) {
-      $this->setErrors('description', $e->getMessage());
     } catch (\MyApp\Exception\InvalidAddress $e) {
       $this->setErrors('address', $e->getMessage());
     } catch (\MyApp\Exception\InvalidLatitude $e) {
@@ -157,11 +161,6 @@ class AdminCustom extends \MyApp\Controller {
     if($_POST['title'] !== '') {
       if(!preg_match('/^[ぁ-んァ-ヶ一-龠０-９、。,\.ー＿\-\w\s]+$/u', $_POST['title'])) {
         throw new \MyApp\Exception\InvalidTitle();
-      }
-    }
-    if($_POST['description'] !== '') {
-      if(!preg_match('/^[ぁ-んァ-ヶ一-龠０-９、。,\.ー＿\-\w\s]+$/u', $_POST['description'])) {
-        throw new \MyApp\Exception\InvalidDescription();
       }
     }
     if($_POST['address'] !== '') {
