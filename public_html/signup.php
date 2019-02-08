@@ -12,7 +12,7 @@ $app->run();
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>test</title>
+    <title>さんぽみち</title>
     <link rel="stylesheet" href="css/import.css">
     <link rel="stylesheet" href="font/font-awesome.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
@@ -25,7 +25,8 @@ $app->run();
       <header>
         <div class="headerInner">
           <div class="headerTitle">
-            <h1>ふらつき場</h1>
+            <div class="headerTitleInner">
+            </div>
           </div>
           <div class="headerNav">
             <ul>
@@ -36,9 +37,9 @@ $app->run();
             <div class="headerMenu hidden" id="menu">
               <ul>
                 <li><a href="login.php#login">ログイン</a></li>
-                <li><a href="">プライバシー</a></li>
-                <li><a href="">ヘルプ</a></li>
-                <li><a href="">利用規約</a></li>
+                <li><a href="help.php">ヘルプ</a></li>
+                <li><a href="privacy.php">プライバシー</a></li>
+                <li><a href="terms.php">利用規約</a></li>
               </ul>
             </div>
           </div>
@@ -114,7 +115,7 @@ $app->run();
             <p class="password">
               半角英数字を含む８文字以上２０文字以下。<br />
               <span class="red fs20">*</span>
-              <input type="password" name="password" placeholder="パスワード" maxlength="20" pattern="^(?=.*?[a-zA-Z])(?=.*?\d)[a-zA-Z\d]{8,20}$" required>
+              <input type="password" name="password" placeholder="例）password1234" maxlength="20" pattern="^(?=.*?[a-zA-Z])(?=.*?\d)[a-zA-Z\d]{8,20}$" required>
             </p>
             <input type="hidden" name="token" value="<?php echo h($_SESSION['token']); ?>">
             <div class="btn submitBtn" onclick="document.getElementById('signup').submit();">
@@ -132,23 +133,24 @@ $app->run();
     <footer>
       <div class="footerMenu">
         <div class="footerMenuInner flexCenter">
-          <a href="">
+          <a href="help.php">
             ヘルプ
           </a>
         </div>
         <div class="footerMenuInner flexCenter">
-          <a href="">
+          <a href="privacy.php">
             プライバシー
           </a>
         </div>
         <div class="footerMenuInner flexCenter">
-          <a href="">
+          <a href="terms.php">
             利用規約
           </a>
         </div>
       </div>
       <div class="footerTitle">
-        <h1>ふらつき場</h1>
+        <div class="footerTitleInner">
+        </div>
       </div>
       <address>
         &copy;Copyright 2018 Neko.

@@ -44,4 +44,12 @@ class Controller {
   public function img() {
     return $this->isLoggedIn() ? $_SESSION['img'] : null;
   }
+
+  protected function adminLoggedIn() {
+    return isset($_SESSION['admin']) && !empty($_SESSION['admin']);
+  }
+
+  public function admin() {
+    return $this->isLoggedIn() ? $_SESSION['admin'] : null;
+  }
 }

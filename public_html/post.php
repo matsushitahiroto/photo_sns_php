@@ -14,7 +14,7 @@ $app->run();
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>test</title>
+    <title>さんぽみち</title>
     <link rel="stylesheet" href="css/import.css">
     <link rel="stylesheet" href="font/font-awesome.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
@@ -29,7 +29,8 @@ $app->run();
       <header>
         <div class="headerInner">
           <div class="headerTitle">
-            <h1>ふらつき場</h1>
+            <div class="headerTitleInner">
+            </div>
           </div>
           <div class="headerNav">
             <ul>
@@ -57,9 +58,9 @@ $app->run();
                 <li><a href="profile.php">プロフィール</a></li>
                 <li><a href="post.php">投稿</a></li>
                 <li><a href="custom.php">編集</a></li>
-                <li><a href="">プライバシー</a></li>
-                <li><a href="">ヘルプ</a></li>
-                <li><a href="">利用規約</a></li>
+                <li><a href="help.php">ヘルプ</a></li>
+                <li><a href="privacy.php">プライバシー</a></li>
+                <li><a href="terms.php">利用規約</a></li>
                 <li>
                   <form action="logout.php" method="post" id="logout">
                     <input type="hidden" name="token" value="<?php echo h($_SESSION['token']); ?>">
@@ -75,6 +76,17 @@ $app->run();
       </header>
       <div class="container">
         <form class="form" action="" method="post" id="post" enctype="multipart/form-data">
+          <div class="red">
+            <?php echo h($app->getErrors('title')); ?>
+            <?php echo h($app->getErrors('size')); ?>
+            <?php echo h($app->getErrors('type')); ?>
+            <?php echo h($app->getErrors('image')); ?>
+            <?php echo h($app->getErrors('address')); ?>
+            <?php echo h($app->getErrors('lat')); ?>
+            <?php echo h($app->getErrors('lng')); ?>
+            <?php echo h($app->getErrors('article')); ?>
+            <?php echo h($app->getErrors('login')); ?>
+          </div>
           <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo h(MAX_FILE_SIZE); ?>">
           <p>
             <input type="text" name="title" value="" placeholder="タイトル">
@@ -91,8 +103,10 @@ $app->run();
             サブの写真２枚目</br>
             <input type="file" name="images[]" value="sub2">
           </p>
-          <!-- <p><input type="text" id="keyword" placeholder="検索"></p>
-          <p><button class="btn" id="search">Serch</button></p> -->
+          <p><input type="text" id="keyword" placeholder="検索"></p>
+          <div class="btn submitBtn" id="search">
+            serch
+          </div>
           <div id="target"></div>
           <p>住所：<span id="add"></span></p>
           <p>緯度：<span id="la"></span></p>
@@ -106,16 +120,6 @@ $app->run();
           <input type="hidden" name="lng" id="lng" value="">
           <input type="hidden" name="id" value="<?php echo h($app->me()->id); ?>">
 
-          <div class="red">
-            <?php echo h($app->getErrors('title')); ?>
-            <?php echo h($app->getErrors('size')); ?>
-            <?php echo h($app->getErrors('type')); ?>
-            <?php echo h($app->getErrors('image')); ?>
-            <?php echo h($app->getErrors('address')); ?>
-            <?php echo h($app->getErrors('lat')); ?>
-            <?php echo h($app->getErrors('lng')); ?>
-            <?php echo h($app->getErrors('login')); ?>
-          </div>
 
           <div class="btn submitBtn" onclick="document.getElementById('post').submit();">
             投稿
@@ -126,23 +130,24 @@ $app->run();
     <footer>
       <div class="footerMenu">
         <div class="footerMenuInner flexCenter">
-          <a href="">
+          <a href="help.php">
             ヘルプ
           </a>
         </div>
         <div class="footerMenuInner flexCenter">
-          <a href="">
+          <a href="privacy.php">
             プライバシー
           </a>
         </div>
         <div class="footerMenuInner flexCenter">
-          <a href="">
+          <a href="terms.php">
             利用規約
           </a>
         </div>
       </div>
       <div class="footerTitle">
-        <h1>ふらつき場</h1>
+        <div class="footerTitleInner">
+        </div>
       </div>
       <address>
         &copy;Copyright 2018 Neko.

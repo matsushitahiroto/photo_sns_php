@@ -6,9 +6,9 @@ class AdminDelete extends \MyApp\Controller {
   // private $user;
   public function run() {
     $user = array();
-    if(!$this->isLoggedIn()) {
+    if(!$this->adminLoggedIn()) {
       //login
-      header('Location:' . SITE_URL . '/login.php');
+      header('Location:' . SITE_URL . '/adminLogin.php');
       exit;
     }
     switch ($_GET['type']) {

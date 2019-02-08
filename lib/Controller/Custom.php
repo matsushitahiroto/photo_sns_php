@@ -37,12 +37,14 @@ class Custom extends \MyApp\Controller {
       //   //ファイルを削除する
       //   unlink($file);
       // }
+    } else {
+      $newIconPath = $iconPath;
     }
     $_POST['description'] = ($_POST['description'] === '') ? '' : $_POST['description'];
     //validate
     try {
       $this->_validate();
-    } catch (\MyApp\Exception\EmptyUserameOrEmail $e) {
+    } catch (\MyApp\Exception\EmptyUsernameOrEmail $e) {
       $this->setErrors('empty', $e->getMessage());
     } catch (\MyApp\Exception\InvalidUsername $e) {
       $this->setErrors('name', $e->getMessage());
@@ -92,7 +94,7 @@ class Custom extends \MyApp\Controller {
       exit;
     }
     if($_POST['name'] === '' || $_POST['email'] === '') {
-      throw new \MyApp\Exception\EmptyUserameOrEmail();
+      throw new \MyApp\Exception\EmptyUsernameOrEmail();
     }
     if(!preg_match('/^[ぁ-んァ-ヶ一-龠a-zA-Z0-9０-９\n\r]+$/u', $_POST['name'])) {
       throw new \MyApp\Exception\InvalidUsername();

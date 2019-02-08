@@ -4,9 +4,9 @@ namespace MyApp\Controller;
 
 class AdminArticle extends \MyApp\Controller {
   public function run() {
-    if(!$this->isLoggedIn()) {
+    if(!$this->adminLoggedIn()) {
       //login
-      header('Location:' . SITE_URL . '/login.php');
+      header('Location:' . SITE_URL . '/adminLogin.php');
       exit;
     }
 

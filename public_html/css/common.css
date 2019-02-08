@@ -1,9 +1,17 @@
 @charset "UTF-8";
 
 /* font */
+/* @font-face {
+    font-family: 'KTEGAKI';
+    src: url('../font/KTEGAKI.eot');
+    src: url('../font/KTEGAKI.eot?iefix') format('eot'),
+         url('../font/KTEGAKI.woff') format('woff'),
+         url('../font/KTEGAKI.ttf') format('truetype'),
+         url('../font/KTEGAKI.svg#webfontjSpbZQRv') format('svg');
+} */
 
 * {
-  font-family: "Tsukushi A Round Gothic","筑紫A丸ゴシック";
+  font-family: 'TsukuARdGothic-Regular', '筑紫A丸ゴシック', 'arial unicode ms', 'ヒラギノ丸ゴ ProN','Hiragino Maru Gothic ProN','Yu Gothic UI','Arial','ヒラギノ角ゴシック','Hiragino Sans', sans-serif;
 }
 
 h1 {

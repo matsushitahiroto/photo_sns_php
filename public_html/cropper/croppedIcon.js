@@ -1,5 +1,7 @@
 function() {
   'use strict';
+
+  console.log('hello');
    /**
      * 丸くトリミングするために必要な関数です。
      * キャンバスの画像を円形に座標計算し、切り取って返しています。
@@ -24,7 +26,6 @@ function() {
     $(function(){
         $('#triming_image').on('change', function(event){
             var trimingImage = event.target.files;
-
             // imageタグは1つしかファイルを送信できない仕組みと複数送信する仕組みの二通りありますので、サーバー側でチェックを忘れないようにしてください。
             if(trimingImage.length > 1){
                 console.log(trimingImage.length + 'つのファイルが選択されました。');
@@ -74,7 +75,7 @@ function() {
             fileReader.onloadend = function(e){
                 var image = document.getElementById('trimed_image');
                 var button = document.getElementById('crop_btn');
-
+                console.log(image);
                 var croppable = false;
                 var cropper = new Cropper(image, {
                     aspectRatio: 1,
@@ -95,11 +96,13 @@ function() {
 
                     // cropper.jsに用意されている機能です。
                     croppedCanvas = cropper.getCroppedCanvas();
+                    console.log('croppedCanvas');
                     // 下記toBlob関数はブラウザによって名前が違います。
                     var blob;
                     if(croppedCanvas.toBlob){
                         croppedCanvas.toBlob(function(blob){
                             var trimedImageForm = new FormData();
+                            console.log('trimedImageForm');
                             trimedImageForm.append('blob', blob);
                             // Ajaxにて送信します。
                             $.ajax({

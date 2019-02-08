@@ -12,7 +12,7 @@ $app->run();
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>test</title>
+    <title>さんぽみち</title>
     <link rel="stylesheet" href="css/import.css">
     <link rel="stylesheet" href="cropper/cropper.css" charset="UTF-8">
     <link rel="stylesheet" href="font/font-awesome.css">
@@ -30,7 +30,8 @@ $app->run();
       <header>
         <div class="headerInner">
           <div class="headerTitle">
-            <h1>ふらつき場</h1>
+            <div class="headerTitleInner">
+            </div>
           </div>
           <div class="headerNav">
             <ul>
@@ -58,9 +59,9 @@ $app->run();
                 <li><a href="profile.php">プロフィール</a></li>
                 <li><a href="post.php">投稿</a></li>
                 <li><a href="custom.php">編集</a></li>
-                <li><a href="">プライバシー</a></li>
-                <li><a href="">ヘルプ</a></li>
-                <li><a href="">利用規約</a></li>
+                <li><a href="help.php">ヘルプ</a></li>
+                <li><a href="privacy.php">プライバシー</a></li>
+                <li><a href="terms.php">利用規約</a></li>
                 <li>
                   <form action="logout.php" method="post" id="logout">
                     <input type="hidden" name="token" value="<?php echo h($_SESSION['token']); ?>">
@@ -128,23 +129,24 @@ $app->run();
     <footer>
       <div class="footerMenu">
         <div class="footerMenuInner flexCenter">
-          <a href="">
+          <a href="help.php">
             ヘルプ
           </a>
         </div>
         <div class="footerMenuInner flexCenter">
-          <a href="">
+          <a href="privacy.php">
             プライバシー
           </a>
         </div>
         <div class="footerMenuInner flexCenter">
-          <a href="">
+          <a href="terms.php">
             利用規約
           </a>
         </div>
       </div>
       <div class="footerTitle">
-        <h1>ふらつき場</h1>
+        <div class="footerTitleInner">
+        </div>
       </div>
       <address>
         &copy;Copyright 2018 Neko.
@@ -194,15 +196,14 @@ $app->run();
           $('#triming_image').on('change', function(event){
               var trimingImage = event.target.files;
 
-              // imageタグは1つしかファイルを送信できない仕組みと複数送信する仕組みの二通りありますので、サーバー側でチェックを忘れないようにしてください。
               if(trimingImage.length > 1){
                   console.log(trimingImage.length + 'つのファイルが選択されました。');
                   return false;
               }
-              // 改め代入します。
               trimingImage = trimingImage[0];
 
-              // 画像のチェックを行いますが、あくまでjsでのチェックなのでサーバーサイドでもう一度チェックを行ってください。
+              console.log(trimingImage.type);
+
               if(!trimingImage.type.match('image/jp.*') // jpg jpeg でない
                &&!trimingImage.type.match('image/png') // png でない
                &&!trimingImage.type.match('image/gif') // gif でない
@@ -216,10 +217,7 @@ $app->run();
               var fileReader = new FileReader();
               fileReader.onload = function(e){
                   var int32View = new Uint8Array(e.target.result);
-                  // see https://en.wikipedia.org/wiki/List_of_file_signatures
-                  // ファイルのヘッダを参照し、マイムタイプを疑似的に取得します。フレームワークによってはもっと簡単に正確に読めるものもあります。
-                  // 下記は厳しい設定です。正規の手順を踏んでもアップロードできないカメラなどがあります。
-                  // （私の環境ではアクションカメラの写真などは下記に引っ掛かりました。）
+
                   if((int32View.length>4 && int32View[0]==0xFF && int32View[1]==0xD8 && int32View[2]==0xFF && int32View[3]==0xE0)
                   || (int32View.length>4 && int32View[0]==0xFF && int32View[1]==0xD8 && int32View[2]==0xFF && int32View[3]==0xDB)
                   || (int32View.length>4 && int32View[0]==0xFF && int32View[1]==0xD8 && int32View[2]==0xFF && int32View[3]==0xD1)
@@ -254,7 +252,6 @@ $app->run();
                       },
                   });
 
-                  // fileReaderが完了した後にボタンクリックイベントを作成する必要があります。
                   button.onclick = function () {
                       var croppedCanvas;
 
@@ -265,11 +262,13 @@ $app->run();
 
                       // cropper.jsに用意されている機能です。
                       croppedCanvas = cropper.getCroppedCanvas();
+                      console.log(cropper);
                       // 下記toBlob関数はブラウザによって名前が違います。
                       var blob;
                       if(croppedCanvas.toBlob){
                           croppedCanvas.toBlob(function(blob){
                               var trimedImageForm = new FormData();
+                              console.log(trimedImageForm);
                               trimedImageForm.append('blob', blob);
                               // この例ではAjaxにて送信します。
                               $.ajax({

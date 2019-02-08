@@ -26,7 +26,7 @@ if (isset($_SESSION['me'])) {
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>test</title>
+    <title>さんぽみち</title>
     <link rel="stylesheet" href="css/import.css">
     <link rel="stylesheet" href="font/font-awesome.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
@@ -43,7 +43,8 @@ if (isset($_SESSION['me'])) {
       <header>
         <div class="headerInner">
           <div class="headerTitle">
-            <h1>ふらつき場</h1>
+            <div class="headerTitleInner">
+            </div>
           </div>
           <div class="headerNav">
             <ul>
@@ -72,9 +73,9 @@ if (isset($_SESSION['me'])) {
                   <li><a href="profile.php">プロフィール</a></li>
                   <li><a href="post.php">投稿</a></li>
                   <li><a href="custom.php">編集</a></li>
-                  <li><a href="">プライバシー</a></li>
-                  <li><a href="">ヘルプ</a></li>
-                  <li><a href="">利用規約</a></li>
+                  <li><a href="help.php">ヘルプ</a></li>
+                  <li><a href="privacy.php">プライバシー</a></li>
+                  <li><a href="terms.php">利用規約</a></li>
                   <li>
                     <form action="logout.php" method="post" id="logout">
                       <input type="hidden" name="token" value="<?php echo h($_SESSION['token']); ?>">
@@ -87,9 +88,9 @@ if (isset($_SESSION['me'])) {
               <?php else : ?>
                 <ul>
                   <li><a href="login.php#login">ログイン</a></li>
-                  <li><a href="">プライバシー</a></li>
-                  <li><a href="">ヘルプ</a></li>
-                  <li><a href="">利用規約</a></li>
+                  <li><a href="help.php">ヘルプ</a></li>
+                  <li><a href="privacy.php">プライバシー</a></li>
+                  <li><a href="terms.php">利用規約</a></li>
                 </ul>
               <?php endif ; ?>
             </div>
@@ -373,8 +374,26 @@ if (isset($_SESSION['me'])) {
         </div>
     </div>
     <footer>
+      <div class="footerMenu">
+        <div class="footerMenuInner flexCenter">
+          <a href="help.php">
+            ヘルプ
+          </a>
+        </div>
+        <div class="footerMenuInner flexCenter">
+          <a href="privacy.php">
+            プライバシー
+          </a>
+        </div>
+        <div class="footerMenuInner flexCenter">
+          <a href="terms.php">
+            利用規約
+          </a>
+        </div>
+      </div>
       <div class="footerTitle">
-        <h1>ふらつき場</h1>
+        <div class="footerTitleInner">
+        </div>
       </div>
       <address>
         &copy;Copyright 2018 Neko.
@@ -399,7 +418,9 @@ if (isset($_SESSION['me'])) {
         </div>
       </div>
     <?php endif ; ?>
-    <input type="hidden" id="user_id" value="<?php echo h($app->me()->id) ; ?>">
+    <?php if (isset($_SESSION['me'])): ?>
+      <input type="hidden" id="user_id" value="<?php echo h($app->me()->id) ; ?>">
+    <?php endif; ?>
     <input type="hidden" id="article_id" value="<?php echo h($app->getValues()->article[0]->id) ; ?>">
     <input type="hidden" id="token" value="<?php echo h($_SESSION['token']); ?>">
   </body>

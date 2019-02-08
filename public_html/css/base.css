@@ -17,9 +17,15 @@ header {
 }
 
 .headerTitle {
-  text-shadow: -2px 2px 3px #f80;
-  color: #333;
+  width: 138px;
+  height: 45px;
   float: left;
+}
+
+.headerTitleInner {
+  background-image: url(../images/image1.jpeg);
+  height: 45px;
+  width: 138px;
 }
 
 .headerNav {
@@ -47,13 +53,21 @@ header {
 
 .headerMenu {
   text-align: left;
-  width: 100%;
+  width: 250px;
+  height: 100%;
+  margin-right: auto;
+  margin-bottom: 60px;
   background-color: #fff;
   box-shadow: -3px 2px 4px  #6d6;
   position: fixed;
+  overflow: auto;
   top: 60px;
   right: 0;
   z-index: 10;
+}
+
+.headerMenu ul {
+  height: 100%;
 }
 
 .headerMenu li {
@@ -65,6 +79,17 @@ header {
 .headerMenu a {
   font-size: 30px;
   line-height: 60px;
+}
+
+.scroll-prevent {
+  overflow: hidden;
+  /*動き固定*/
+  position: fixed;
+  /*奥行きを管理*/
+  z-index: -1;
+  /*下2つで背景を元のサイズのまま表示することができる*/
+  width: 100%;
+  height: 100%;
 }
 
 /* user */
@@ -125,7 +150,7 @@ header {
 .keyVisual {
   width: 100%;
   height: 50vh;
-  background-image: url(/../images/1530797394905.jpg);
+  background-image: url(../images/1530797394905.jpg);
   background-position: center;
   background-size: cover;
   position: relative;
@@ -265,10 +290,16 @@ footer {
 }
 
 .footerTitle {
-  text-align: right;
-  text-shadow: -2px 2px 4px #f80;
-  color: #333;
+  width: 138px;
+  height: 45px;
+  float: right;
   margin: 10px 20px;
+}
+
+.footerTitleInner {
+  background-image: url(../images/image1.jpeg);
+  height: 45px;
+  width: 138px;
 }
 
 address {

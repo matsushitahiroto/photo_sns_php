@@ -3,7 +3,6 @@
     try{
         // $_FILESで受け取れます。
         $file = $_FILES['blob'];
-
         // 画像アップロード
         $ext = 'jpg';
         $imageFileName = sprintf(
@@ -13,7 +12,8 @@
           $ext
         );
         $savePath = './tmpImage/' . $imageFileName;
-        move_uploaded_file($_FILES['blob']['tmp_name'], '../' . $savePath);
+
+        move_uploaded_file($_FILES['blob']['tmp_name'], '.' . $savePath);
 
         $res = [
             'status' => 'success',

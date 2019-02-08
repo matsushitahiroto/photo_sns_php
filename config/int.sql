@@ -22,8 +22,8 @@ create table articles (
   title varchar(255),
   description varchar(255),
   savePath varchar(255) unique,
-  savePathSub1 varchar(255) unique,
-  savePathSub2 varchar(255) unique,
+  savePathSub1 varchar(255),
+  savePathSub2 varchar(255),
   address varchar(255),
   lat varchar(255),
   lng varchar(255),
@@ -49,6 +49,8 @@ create table likes (
 );
 
 -- 以下テスト用
+-- adminuser
+update users set admin = 1 where id = 1;
 -- 一覧表示用
 select
 articles.id,

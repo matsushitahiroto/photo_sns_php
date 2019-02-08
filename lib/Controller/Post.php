@@ -26,7 +26,6 @@ class Post extends \MyApp\Controller {
     //ファイルの数をカウントする
     $photoData = $_FILES['images']['name'];
     $num = count($photoData);
-
     $fileData = array();
     $arr = array();
     for($i = 0; $i < $num; $i++){

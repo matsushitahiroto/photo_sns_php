@@ -16,32 +16,32 @@ function initMap() {
     zoom: 15
   });
 
-  // navigator.geolocation.getCurrentPosition(function (position) {
-  //   map.setCenter({
-  //       lat: position.coords.latitude,
-  //       lng: position.coords.longitude
-  //   });
-  // }, function () {
-  //   alert('Geolocation failed!');
-  //   return;
-  // });
-  //
-  // document.getElementById('search').addEventListener('click', function() {
-  //   geocoder.geocode({
-  //     address: document.getElementById('keyword').value
-  //   }, function(results, status) {
-  //     if (status !== 'OK') {
-  //       alert('Failed: ' + status);
-  //       return;
-  //     }
-  //     if (results[0]) {
-  //       map.setCenter(results[0].geometry.location);
-  //     } else {
-  //       alert('No results found!');
-  //       return;
-  //     }
-  //   });
-  // });
+  navigator.geolocation.getCurrentPosition(function (position) {
+    map.setCenter({
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+    });
+  }, function () {
+    alert('Geolocation failed!');
+    return;
+  });
+
+  document.getElementById('search').addEventListener('click', function() {
+    geocoder.geocode({
+      address: document.getElementById('keyword').value
+    }, function(results, status) {
+      if (status !== 'OK') {
+        alert('Failed: ' + status);
+        return;
+      }
+      if (results[0]) {
+        map.setCenter(results[0].geometry.location);
+      } else {
+        alert('No results found!');
+        return;
+      }
+    });
+  });
 
   map.addListener('click', function(e) {
     geocoder.geocode({

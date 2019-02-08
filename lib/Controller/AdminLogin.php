@@ -4,7 +4,7 @@ namespace MyApp\Controller;
 
 class AdminLogin extends \MyApp\Controller {
   public function run() {
-    if($this->isLoggedIn()) {
+    if($this->adminLoggedIn()) {
       //login
       header('Location:' . SITE_URL . '/adminIndex.php');
       exit;
@@ -15,9 +15,10 @@ class AdminLogin extends \MyApp\Controller {
   }
 
   protected function postProcess() {
+    //validate
     try {
       $this->_validate();
-    } catch (MyApp\Exception\EmptyPost $e) {
+    } catch (\MyApp\Exception\EmptyPost $e) {
       $this->setErrors('login', $e->getMessage());
     }
 
@@ -32,13 +33,14 @@ class AdminLogin extends \MyApp\Controller {
         ]);
       } catch (\MyApp\Exception\UnmatchUsernameOrPassword $e) {
         $this->setErrors('login', $e->getMessage());
+        return;
       } catch (\MyApp\Exception\NoAdminUser $e) {
         $this->setErrors('admin', $e->getMessage());
         return;
       }
 
       session_regenerate_id(true);
-      $_SESSION['me'] = $user;
+      $_SESSION['admin'] = $user;
 
       header('Location:' . SITE_URL . '/adminIndex.php');
       exit;
